@@ -1,34 +1,22 @@
 
-import axios from "axios";
-import React, { Component } from "react"
-import logo from "./profile.png"
-import Typewriter from 'typewriter-effect';
-var output = "";
+import React from "react"
 
-class AnimatedText extends Component {
-    constructor() {
-        super()
-        this.state = {
-            name: ""
+
+function Stock() {
+    let element = 0;
+    const fetchPromise = fetch("https://personalbackendreact.azurewebsites.net/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo");
+    const data = fetchPromise.then(response => response.json()).then((response) => {
+        for (element in response) {
+            console.log(response[element].sponsorName)
         }
-    }
+    });
 
-    componentDidMount() {
-        axios.get("https://personalbackendreact.azurewebsites.net/GetAllUsers").then((response) => {
 
-            const users = response.data;
-            output = response.data.name;
-            this.setState({
-                name: output
 
-            })
 
-        });
-    }
 
-    render(){
-        return (<div className="visited"><p>{[this.state.name]}, was the last user to leave a message.</p></div>)
-    }
 
+
+return (<div className="visited"><p> was the last user to leave a message.</p></div>);
 }
-export default AnimatedText;
+export default Stock;
