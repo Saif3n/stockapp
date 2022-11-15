@@ -11,14 +11,18 @@ function StockSearch(props){
                 response => response.json()
             ).then((response)=>{
                 setResult([]);
-                
+                let query = value.toLowerCase();
                 for (const element in response){
-                    let val = value.toLowerCase();
-
+                    let val = response[element].sponsorName.toLowerCase();
+                    if (val.slice(0, query.length).indexOf(query) !== -1){
+                        setResult(prevResult =>{
+                            return [...prevResult, response[element].sponsorName]
+                        });
+                    }
                 }
-            });
-        } else{
-            setResult([]);
+            })
+        }else{
+            setResult([])
         }
         
       }, [value])
