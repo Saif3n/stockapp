@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react"
 let done = 0;
 var arr = [];
+
 function StockSearch(props){
 
     const [value, setValue] = useState('');
     const [result, setResult] = useState([]);
-    
-    
 
     useEffect(()=>{
-        console.log('first: ' + done)
+        console.log("test")
         if (done === 0){
             fetch("https://personalbackendreact.azurewebsites.net/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo").then(
                 response => response.json()
@@ -17,40 +16,54 @@ function StockSearch(props){
                 for (var i in response){
                     arr.push(response[i]);
                 }
+                for (const element in arr){
+                    setResult(prevResult =>{
+                        return [...prevResult, arr[element]]
+                    });
+        
+                }
             })
-            done = 1;
+
         }
 
         if (value.length>0) {
                 setResult([]);
                 let query = value.toLowerCase();
-                console.log("query: " + query)
+     
                 for (const element in arr){
                     let val = arr[element].sponsorName.toLowerCase();
-                    console.log("value: " + val)
+
                     if (val.slice(0, query.length).indexOf(query) !== -1){
                         setResult(prevResult =>{
-                            console.log(arr[element].sponsorName)
-                            return [...prevResult, arr[element].sponsorName]
+                            return [...prevResult, arr[element]]
                         });
                     }
                 }
         } else {
-            setResult([])
+            setResult([]);
+                for (const element in arr){
+                        setResult(prevResult =>{
+                            return [...prevResult, arr[element]]
+                        });
+        
+                }
+            // setResult([])
         }
         
       }, [value])
 
         return(
-          <form>
+          <form onLoad={(event) => setValue("")}>
             <label>
               Name:
               <input type="text" onChange={(event) => setValue(event.target.value)} value={value}/>
             </label>
-            <div className="">
+            <div className="w">
                 {result.map((result, index) =>(
-                    <div className="searchEntry">
-                        {result}
+                    <div key={index} className="searchEntry">
+                        {result.teamName}
+                        {result.sponsorName}
+                        
                     </div>
                 ))}
             </div>
