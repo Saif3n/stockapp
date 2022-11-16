@@ -40,17 +40,17 @@
 ul{
   border: 1px solid black;
   padding:2%;
-  max-width:30%;
-  margin-left:auto;
-  margin-right:auto;
+  min-width:30%;
+  margin-right:0.2%;
   margin-top:1%;
   list-style-type: none;
+  display:inline-block;
 }
 .McLaren{
-   background: linear-gradient( #ffa600 0% 78%, #FFFFFF 78% 82%, #5f5d5d 82% 100%);
+  background: linear-gradient( #ff8000 0% 78%, #47c7fc 78% 86%, #ffffff 80% 80.5%, #000000 79% 100%);
 }
 .Oracle{
-  background: linear-gradient( #082a4d 0% 78%, #dc0c1d 78% 100%);
+  background: linear-gradient( #082a4d 0% 78%, #fcd800 78% 80%, #ffffff 80% 80.5%, #dc0c1d 79% 100%);
   color:white;
 }
 
@@ -64,11 +64,11 @@ ul{
   color:white;
 }
 .Haas{
-  background: linear-gradient( #f9f2f2 0% 78%, #f62039 78% 89%, #295294 89% 100% );
+  background: linear-gradient( rgb(243, 237, 237) 0% 78%, #f62039 78% 89%, #295294 89% 100% );
 
 }
 .Mercedes{
-  background: linear-gradient( #e6e4e4 0% 78%, #00A19C 78% 100%);
+  background: linear-gradient(#ad1c3c 0% 5%, #e6e4e4 3% 78%, #00A19C 78% 100%);
 }
 
 .Aston{
@@ -81,5 +81,10 @@ ul{
 }
 .Scuderia.Ferrari{
   background: linear-gradient( #A6051A 0% 78%, #FFEB00 78% 80%, #111111 82% 100%);
+  color:white;
+}
+
+.BWT{
+  background: linear-gradient( #0078C1 0% 78%, #FD4BC7 78% 82%, #FFFFFF 82% 100%);
   color:white;
 }

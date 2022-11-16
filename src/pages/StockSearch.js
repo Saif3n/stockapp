@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react"
 let done = 0;
 var arr = [];
 
-
-
-
 function StockSearch(props) {
 
     const [value, setValue] = useState('');
@@ -12,8 +9,7 @@ function StockSearch(props) {
 
     useEffect(() => {
 
-
-        if (done === 0) {
+       if (done === 0) {
             fetch("https://personalbackendreact.azurewebsites.net/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo").then(
                 response => response.json()
             ).then((response) => {
