@@ -47,7 +47,7 @@ ul{
   list-style-type: none;
 }
 .McLaren{
-   background: linear-gradient( #ffa600 0% 78%, rgb(95, 93, 93) 78% 100%);
+   background: linear-gradient( #ffa600 0% 78%, #FFFFFF 78% 82%, #5f5d5d 82% 100%);
 }
 .Oracle{
   background: linear-gradient( #082a4d 0% 78%, #dc0c1d 78% 100%);
@@ -77,5 +77,9 @@ ul{
 }
 .Scuderia.AlphaTauri{
   background: linear-gradient( #00293F 0% 78%, #F1F3F4 78% 100%);
+  color:white;
+}
+.Scuderia.Ferrari{
+  background: linear-gradient( #A6051A 0% 78%, #FFEB00 78% 80%, #111111 82% 100%);
   color:white;
 }

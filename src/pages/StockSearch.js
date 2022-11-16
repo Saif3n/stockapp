@@ -57,9 +57,9 @@ function StockSearch(props) {
     }, [value])
 
     return (
-        <form onLoad={(event) => setValue("")}>
+        <form>
             <label>
-                Name:
+                Name: 
                 <input type="text" onChange={(event) => setValue(event.target.value)} value={value} />
             </label>
             <div className="w">
