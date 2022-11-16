@@ -37,11 +37,45 @@
   }
 }
 
-.McLaren{
+ul{
   border: 1px solid black;
   padding:2%;
   max-width:30%;
   margin-left:auto;
   margin-right:auto;
   margin-top:1%;
+  list-style-type: none;
+}
+.McLaren{
+   background: linear-gradient( #ffa600 0% 78%, rgb(95, 93, 93) 78% 100%);
+}
+.Oracle{
+  background: linear-gradient( #082a4d 0% 78%, #dc0c1d 78% 100%);
+  color:white;
+}
+
+.Williams{
+  background: linear-gradient( #FFFFFF 0% 78%, #00A3E0 78% 100%);
+  color:black;
+}
+
+.Alfa{
+  background: linear-gradient( #981E32 0% 78%, #FFFFFF 78% 100%);
+  color:white;
+}
+.Haas{
+  background: linear-gradient( #f9f2f2 0% 78%, #f62039 78% 89%, #295294 89% 100% );
+
+}
+.Mercedes{
+  background: linear-gradient( #e6e4e4 0% 78%, #00A19C 78% 100%);
+}
+
+.Aston{
+  background: linear-gradient( #00594F 0% 78%, #CEDC00 78% 100%);
+  color:white;
+}
+.Scuderia.AlphaTauri{
+  background: linear-gradient( #00293F 0% 78%, #F1F3F4 78% 100%);
+  color:white;
 }

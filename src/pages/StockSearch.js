@@ -12,7 +12,7 @@ function StockSearch(props) {
 
     useEffect(() => {
 
-        
+
         if (done === 0) {
             fetch("https://personalbackendreact.azurewebsites.net/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo").then(
                 response => response.json()
@@ -64,11 +64,11 @@ function StockSearch(props) {
             </label>
             <div className="w">
                 {result.map((result, index) => (
-                    <div key={index} className="searchEntry">
+                    <ul key={index} className={result.teamName}>
+                        <li><strong>{result.sponsorName}</strong></li>
                         <li>{result.teamName}</li>
-                        <li>{result.sponsorName}</li>
 
-                    </div>
+                    </ul>
                 ))}
             </div>
         </form>
