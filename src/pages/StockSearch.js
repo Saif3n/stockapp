@@ -70,10 +70,13 @@ function StockSearch(props) {
 
         }
         done = 1;
-        console.log(teamArr);
-        console.log(arr);
+
     }, [value])
 
+    const handleChange = e =>{
+        console.log(e.target.value)
+        setOption(e.target.value);
+    }
     return (
         <form>
             <label>
@@ -84,9 +87,9 @@ function StockSearch(props) {
 
             
             <div className="w">
-                <select id="dropdown-basic-button" title="Dropdown button">
+                <select id="dropdown-basic-button" title="Dropdown button" onChange={handleChange}>
                 {team.map((team, index) => (
-                        <option class={'op'+team} key={index} onChange={(event) => setOption(event.value)}>{team}</option>
+                        <option className={'op'+team} key={index}>{team}</option>
                 ))}
                 </select>
             </div>
