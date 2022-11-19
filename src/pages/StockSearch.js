@@ -4,17 +4,17 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 let done = 0;
-let sponsor = 0;
+
 let arr = [];
 let defArr = [];
+let curTeamArr = [];
 let teamArr = [];
 
-function StockSearch(props) {
+function StockSearch() {
 
     const [value, setValue] = useState('');
-    const [option, setOption] = useState('');
     const [result, setResult] = useState([]);
-    const [team, setTeam] = useState([]);
+
 
     useEffect(() => {
         if (done === 0) {
@@ -33,6 +33,7 @@ function StockSearch(props) {
                     });
                 }
                 defArr = arr;
+
             })
         }
 
@@ -43,8 +44,8 @@ function StockSearch(props) {
 
             for (const element in arr) {
                 let val = arr[element].sponsorName.toLowerCase();
-
                 if (val.slice(0, query.length).indexOf(query) !== -1) {
+                    curTeamArr.push(arr[element]);
                     setResult(prevResult => {
                         return [...prevResult, arr[element]]
                     });
@@ -52,7 +53,7 @@ function StockSearch(props) {
             }
 
         } else {
-            setResult(defArr);
+            setResult(arr);
         }
         done = 1;
 
@@ -60,30 +61,31 @@ function StockSearch(props) {
 
     const handleDropdownChange = e => {
 
-        setOption(e.target.value);
-        sponsor = 1;
         setResult([])
+        
 
-        let query = e.target.value.toLowerCase();
-        console.log(query)
+        let query = e.target.value;
+        
         if (e.target.value === '<-- Select a team -->') {
-            setResult(defArr);
+            setResult(arr);
         } else {
-            for (const element in arr) {
-                let val = arr[element].teamName.toLowerCase();
+            arr = [];
+            for (const element in defArr) {
+                let val = defArr[element].teamName;
                 if (val.slice(0, query.length).indexOf(query) !== -1) {
+                    arr.push(defArr[element])
                     setResult(prevResult => {
-                        return [...prevResult, arr[element]]
+                        return [...prevResult, defArr[element]]
                     });
                 }
             }
         }
-
+        console.log(arr)
     }
     return (
         <form>
             <label>
-                Name:
+                Search for a sponsor:
                 <input type="text" onChange={(event) => setValue(event.target.value)} value={value} />
             </label>
 
