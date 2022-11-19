@@ -45,7 +45,12 @@ ul{
   margin-top:1%;
   list-style-type: none;
   display:inline-block;
+  padding-bottom:2.6%;
 }
+li{
+  font-size: 1.8vh;
+}
+
 .McLaren{
   background: linear-gradient( #ff8000 0% 78%, #47c7fc 78% 86%, #ffffff 80% 80.5%, #000000 79% 100%);
 }
@@ -87,4 +92,7 @@ ul{
 .BWT{
   background: linear-gradient( #0078C1 0% 78%, #FD4BC7 78% 82%, #FFFFFF 82% 100%);
   color:white;
+}
+.opSelect{
+  font-weight:bold;
 }

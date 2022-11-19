@@ -1,26 +1,46 @@
 import React, { useEffect, useState } from "react"
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 let done = 0;
-var arr = [];
+let arr = [];
+let teamArr = [];
 
 function StockSearch(props) {
 
     const [value, setValue] = useState('');
+    const[option, setOption] = useState('');
     const [result, setResult] = useState([]);
+    const [team, setTeam] = useState([]);
 
     useEffect(() => {
-
-       if (done === 0) {
+        console.log("The chosen value is: " + option);
+        if (done === 0) {
             fetch("https://personalbackendreact.azurewebsites.net/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo").then(
                 response => response.json()
             ).then((response) => {
+                teamArr.push('<-- Select a team -->')
                 for (var i in response) {
                     arr.push(response[i]);
+                    // gets array of teams for dropdown
+                    
+                    if (!teamArr.includes(response[i].teamName)) {
+                        teamArr.push(response[i].teamName);
+                    }
                 }
                 for (const element in arr) {
                     setResult(prevResult => {
                         return [...prevResult, arr[element]]
                     });
                 }
+
+                for (const element in teamArr) {
+                    setTeam(prevResult => {
+                        return [...prevResult, teamArr[element]]
+                    });
+                }
+
 
             })
         }
@@ -50,14 +70,27 @@ function StockSearch(props) {
 
         }
         done = 1;
+        console.log(teamArr);
+        console.log(arr);
     }, [value])
 
     return (
         <form>
             <label>
-                Name: 
+                Name:
                 <input type="text" onChange={(event) => setValue(event.target.value)} value={value} />
             </label>
+            
+
+            
+            <div className="w">
+                <select id="dropdown-basic-button" title="Dropdown button">
+                {team.map((team, index) => (
+                        <option class={'op'+team} key={index} onChange={(event) => setOption(event.value)}>{team}</option>
+                ))}
+                </select>
+            </div>
+            
             <div className="w">
                 {result.map((result, index) => (
                     <ul key={index} className={result.teamName}>
@@ -67,7 +100,10 @@ function StockSearch(props) {
                     </ul>
                 ))}
             </div>
+
         </form>
+
+
     );
 }
 export default StockSearch;
