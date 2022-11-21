@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 let done = 0;
@@ -18,7 +17,7 @@ function StockSearch() {
 
     useEffect(() => {
         if (done === 0) {
-            fetch("https://personalbackendreact.azurewebsites.net/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo").then(
+            fetch("https://localhost:7024/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo").then(
                 response => response.json()
             ).then((response) => {
                 teamArr.push('<-- Select a team -->')
@@ -67,7 +66,7 @@ function StockSearch() {
         let query = e.target.value;
         
         if (e.target.value === '<-- Select a team -->') {
-            setResult(arr);
+            setResult(defArr);
         } else {
             arr = [];
             for (const element in defArr) {
@@ -80,8 +79,18 @@ function StockSearch() {
                 }
             }
         }
-        console.log(arr)
     }
+
+    const openNav = e => {
+
+    }
+
+    const closeNav = e => {
+
+    }
+
+
+
     return (
         <form>
             <label>
@@ -94,16 +103,17 @@ function StockSearch() {
             <div className="w">
                 <select id="dropdown-basic-button" title="Dropdown button" onChange={handleDropdownChange}>
                     {teamArr.map((teamArr, index) => (
-                        <option className={'op' + teamArr} key={index}>{teamArr}</option>
+                        <option className={'op' + teamArr} ref={index}>{teamArr}</option>
                     ))}
                 </select>
             </div>
 
             <div className="w">
                 {result.map((result, index) => (
-                    <ul key={index} className={result.teamName}>
+                    <ul ref={index} className={result.teamName}>
                         <li><strong>{result.sponsorName}</strong></li>
                         <li>{result.teamName}</li>
+
 
                     </ul>
                 ))}

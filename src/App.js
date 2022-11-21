@@ -13,6 +13,8 @@ function App() {
       <StockSearch></StockSearch>
       
     </div>
+
+    
   );
 }
 
