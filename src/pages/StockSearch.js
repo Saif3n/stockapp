@@ -63,10 +63,10 @@ function StockSearch() {
     const handleDropdownChange = e => {
 
         setResult([])
-        
+
 
         let query = e.target.value;
-        
+
         if (e.target.value === '<-- Select a team -->') {
             setResult(arr);
         } else {
@@ -85,12 +85,13 @@ function StockSearch() {
     }
 
     const openNav = (sponsor) => {
-        document.getElementById("myNav").style.width = "100%";
+        document.getElementById("myNav").style.height = "100%";
         console.log(sponsor)
+        setSponsor(sponsor);
     }
 
     const closeNav = e => {
-        document.getElementById("myNav").style.width = "0%";
+        document.getElementById("myNav").style.height = "0%";
     }
 
 
@@ -99,51 +100,45 @@ function StockSearch() {
 
     return (
         <>
-        <form>
-            <label>
-                Search for a sponsor:
-                <input type="text" onChange={(event) => setValue(event.target.value)} value={value} />
-            </label>
+            <div>
+                <label>
+                    Search for a sponsor:
+                    <input type="text" onChange={(event) => setValue(event.target.value)} value={value} />
+                </label>
 
 
 
-            <div className="w">
-                <select id="dropdown-basic-button" title="Dropdown button" onChange={handleDropdownChange}>
-                    {teamArr.map((teamArr, index) => (
-                        <option className={'op' + teamArr} key={index}>{teamArr}</option>
+                <div className="w">
+                    <select id="dropdown-basic-button" title="Dropdown button" onChange={handleDropdownChange}>
+                        {teamArr.map((teamArr, index) => (
+                            <option className={'op' + teamArr} key={index}>{teamArr}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="w" >
+                    {result.map((result, index) => (
+                        <ul key={index} className={result.teamName} >
+                            <li ><strong className="sponsorNameClick" onClick={() => openNav(result.sponsorName)}>{result.sponsorName}</strong></li>
+                            <li>{result.teamName}</li>
+
+                        </ul>
                     ))}
-                </select>
+                </div>
+
             </div>
 
-            <div className="w" >
-                {result.map((result, index) => (
-                    <ul key={index} className={result.teamName} onClick={()=> openNav(result.sponsorName)}>
-                        <li ><strong>{result.sponsorName}</strong></li>
-                        <li>{result.teamName}</li>
+            <div id="myNav" className="overlay">
+                <a className="closebtn" onClick={closeNav}>x</a>
+                <div className="overlay-content">
+                    <h1 className="href">{sponsor}</h1>
+                </div>
 
-                    </ul>
-                ))}
             </div>
 
-        </form>
-        <><div id="myNav" className="overlay">
+   
+        </>
 
-
-   <a className="closebtn" onClick={closeNav}>x</a>
- 
-
-   <div className="overlay-content">
-     <a href="#">About</a>
-     <a href="#">Services</a>
-     <a href="#">Clients</a>
-     <a href="#">Contact</a>
-   </div>
- 
- </div>
- 
-</>
-                    </>
-        
 
 
     );
