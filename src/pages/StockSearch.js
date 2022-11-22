@@ -92,6 +92,7 @@ function StockSearch() {
 
 
     return (
+        <>
         <form>
             <label>
                 Search for a sponsor:
@@ -121,6 +122,7 @@ function StockSearch() {
 
         </form>
 
+        </>                   
 
     );
 }
