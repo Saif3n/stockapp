@@ -21,7 +21,7 @@ function StockSearch() {
 
     useEffect(() => {
         if (done === 0) {
-            fetch("https://personalbackendreact.azurewebsites.net/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo").then(
+            fetch("https://localhost:7024/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo").then(
                 response => response.json()
             ).then((response) => {
                 teamArr.push('<-- Select a team -->')
@@ -99,8 +99,6 @@ function StockSearch() {
 
 
 
-
-
     return (
         <>
             <div>
@@ -132,7 +130,7 @@ function StockSearch() {
             </div>
                         
 
-            <div id={'o'+team} className="overlay" style={{height: navOpen ? 100 + '%' : 0 + '%'}} >
+            <div className={'o'+team} id="overlay" style={{height: navOpen ? 100 + '%' : 0 + '%'}} >
                 <a className="closebtn" onClick={closeNav}>x</a>
                 <div className="overlay-content">
                     <h1 className="href">{sponsor}</h1>
