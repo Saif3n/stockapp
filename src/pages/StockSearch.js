@@ -14,7 +14,9 @@ function StockSearch() {
 
     const [value, setValue] = useState('');
     const [result, setResult] = useState([]);
-    const [sponsor, setSponsor] = useState('')
+    const [sponsor, setSponsor] = useState('');
+    const [team, setTeam] = useState('');
+    const [navOpen, setNavOpen] = useState(false);
 
 
     useEffect(() => {
@@ -84,14 +86,15 @@ function StockSearch() {
         console.log(arr)
     }
 
-    const openNav = (sponsor) => {
-        document.getElementById("myNav").style.height = "100%";
-        console.log(sponsor)
+    function openNav (sponsor, team){
+        setNavOpen(true)
         setSponsor(sponsor);
+        setTeam(team);
     }
 
-    const closeNav = e => {
-        document.getElementById("myNav").style.height = "0%";
+    function closeNav(){
+        setNavOpen(false)
+
     }
 
 
@@ -119,7 +122,7 @@ function StockSearch() {
                 <div className="w" >
                     {result.map((result, index) => (
                         <ul key={index} className={result.teamName} >
-                            <li ><strong className="sponsorNameClick" onClick={() => openNav(result.sponsorName)}>{result.sponsorName}</strong></li>
+                            <li ><strong className="sponsorNameClick" onClick={() => openNav(result.sponsorName, result.teamName)}>{result.sponsorName}</strong></li>
                             <li>{result.teamName}</li>
 
                         </ul>
@@ -127,13 +130,13 @@ function StockSearch() {
                 </div>
 
             </div>
+                        
 
-            <div id="myNav" className="overlay">
+            <div id={'o'+team} className="overlay" style={{height: navOpen ? 100 + '%' : 0 + '%'}} >
                 <a className="closebtn" onClick={closeNav}>x</a>
                 <div className="overlay-content">
                     <h1 className="href">{sponsor}</h1>
                 </div>
-
             </div>
 
    

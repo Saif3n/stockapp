@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -106,10 +107,56 @@ li{
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: rgb(0,0,0);
   background-color: rgba(0,0,0, 0.9);
   overflow-y: hidden;
   transition: 0.5s;
+}
+#myNav{
+  background-color: rgba(138, 4, 4, 0.9);
+}
+
+
+#oMcLaren{
+  background: linear-gradient( #ff8000 0% 78%, #47c7fc 78% 86%, #ffffff 80% 80.5%, #000000 79% 100%);
+}
+#oOracle{
+  background: linear-gradient( #082a4d 0% 78%, #fcd800 78% 82%, #ffffff 80% 80.5%, #dc0c1d 79% 100%);
+  color:white;
+}
+
+#oWilliams{
+  background: linear-gradient( #FFFFFF 0% 78%, #00A3E0 78% 100%);
+  color:black;
+}
+
+#oAlfa{
+  background: linear-gradient( #981E32 0% 78%, #FFFFFF 78% 100%);
+  color:white;
+}
+#oHaas{
+  background: linear-gradient( rgb(243, 237, 237) 0% 78%, #f62039 78% 89%, #295294 89% 100% );
+
+}
+#oMercedes{
+  background: linear-gradient(#ad1c3c 0% 5%, #e6e4e4 3% 78%, #00A19C 78% 100%);
+}
+
+#oAston{
+  background: linear-gradient( #00594F 0% 78%, #CEDC00 78% 100%);
+  color:white;
+}
+#oScuderia.AlphaTauri{
+  background: linear-gradient( #00293F 0% 78%, #F1F3F4 78% 100%);
+  color:white;
+}
+#oScuderia.Ferrari{
+  background: linear-gradient( #A6051A 0% 78%, #FFEB00 78% 80%, #111111 82% 100%);
+  color:white;
+}
+
+#oBWT{
+  background: linear-gradient( #0078C1 0% 78%, #FD4BC7 78% 82%, #FFFFFF 82% 100%);
+  color:white;
 }
 
 .overlay-content {
