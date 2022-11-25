@@ -54,6 +54,7 @@ li{
 
 .McLaren{
   background: linear-gradient( #ff8000 0% 78%, #47c7fc 78% 86%, #ffffff 80% 80.5%, #000000 79% 100%);
+  color:black;
 }
 .Oracle{
   background: linear-gradient( #082a4d 0% 78%, #fcd800 78% 82%, #ffffff 80% 80.5%, #dc0c1d 79% 100%);
@@ -71,10 +72,11 @@ li{
 }
 .Haas{
   background: linear-gradient( rgb(243, 237, 237) 0% 78%, #f62039 78% 89%, #295294 89% 100% );
-
+  color:black;
 }
 .Mercedes{
   background: linear-gradient(#ad1c3c 0% 5%, #e6e4e4 3% 78%, #00A19C 78% 100%);
+  color:black;
 }
 
 .Aston{
@@ -117,7 +119,8 @@ li{
 
 
 .oMcLaren{
-  background-color: rgba(138, 4, 4, 0.9);
+  background: linear-gradient( #ff8000 0% 78%, #47c7fc 78% 86%, #ffffff 80% 80.5%, #000000 79% 100%);
+
   
 }
 .oOracle{
@@ -165,7 +168,7 @@ li{
   top: 10%;
   width: 100%;
   text-align: center;
-  margin-top: 30px;
+
 }
 
 #overlay a {
@@ -186,6 +189,13 @@ li{
   top: 20px;
   right: 45px;
   font-size: 60px;
+  cursor:pointer;
+}
+
+#svggraph {
+  max-width: 40%;
+  max-height: 10%;
+  background-color: #8b8686;
 }
 
 @media screen and (max-height: 450px) {
@@ -204,6 +214,6 @@ li{
   cursor:pointer;
 }
 .sponsorNameClick:hover{
-  color:rgb(255, 255, 255);
+  filter: invert(1);
 
 }
