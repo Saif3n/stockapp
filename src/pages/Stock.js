@@ -4,7 +4,7 @@ import React from "react"
 
 function Stock() {
     let element = 0;
-    const fetchPromise = fetch("https://localhost:7024/gjsgj20ujsa0dfjfbv0dgbjdfiugj459yo");
+    const fetchPromise = fetch("https://localhost:7024/GetAllSponsors");
     const data = fetchPromise.then(response => response.json()).then((response) => {
         for (element in response) {
             console.log(response[element].sponsorName)
