@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 // import Dropdown from 'react-bootstrap/Dropdown';
 // import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { isCompositeComponent } from "react-dom/test-utils";
 
 let done = 0;
 
@@ -17,7 +18,7 @@ function StockSearch() {
     const [result, setResult] = useState([]);
     const [sponsor, setSponsor] = useState('');
     const [team, setTeam] = useState('');
-    const [driver, setDriver] = useState('');
+    const [driver, setDriver] = useState([]);
     const [navOpen, setNavOpen] = useState(false);
 
 
@@ -40,6 +41,7 @@ function StockSearch() {
                 defArr = arr;
 
             })
+            console.log(result)
         }
 
         if (value.length > 0) {
@@ -93,7 +95,7 @@ function StockSearch() {
         setSponsor(sponsor);
         setTeam(team);
 
-        
+
     }
 
     function closeNav() {
@@ -101,16 +103,23 @@ function StockSearch() {
     }
 
     const handleDropdownDrivers = (e) => {
+        setDriver([]);
+        console.log(e.target.value)
+        console.log(team)
 
-        fetch("https://localhost:7024/GetResultByTeam?teamName=" + team).then(
+        fetch("https://localhost:7024/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
             response => response.json()
         ).then((response) => {
             for (const element in response) {
+
                 setDriver(prevResult => {
+
                     return [...prevResult, drivers[element]]
                 });
             }
+            console.log(driver)
         });
+        
     }
 
 
@@ -149,47 +158,52 @@ function StockSearch() {
                 <div className="overlay-content">
                     <h1 className="href">{sponsor}</h1>
                     <select id="dropdown-basic-button" title="Dropdown button" onChange={handleDropdownDrivers}>
-                            <option>Bahrain</option>
-                            <option>Saudi Arabia</option>
-                            <option>Australia</option>
-                            <option>Emilia Romagna</option>
-                            <option>Miami</option>
-                            <option>Spain</option>
-                            <option>Monaco</option>
-                            <option>Azerbaijan</option>
-                            <option>Canada</option>
-                            <option>Great Britain</option>
-                            <option>Austria</option>
-                            <option>France</option>
-                            <option>Hungary</option>
-                            <option>Belgium</option>
-                            <option>Netherlands</option>
-                            <option>Italy</option>
-                            <option>Singapore</option>
-                            <option>Japan</option>
-                            <option>United States</option>
-                            <option>Mexico</option>
-                            <option>Brazil</option>
-                            <option>Abu Dhabi</option>
-
-
+                        <option>{'<- Select an option ->'}</option>
+                        <option>Bahrain</option>
+                        <option>Saudi Arabia</option>
+                        <option>Australia</option>
+                        <option>Emilia Romagna</option>
+                        <option>Miami</option>
+                        <option>Spain</option>
+                        <option>Monaco</option>
+                        <option>Azerbaijan</option>
+                        <option>Canada</option>
+                        <option>Great Britain</option>
+                        <option>Austria</option>
+                        <option>France</option>
+                        <option>Hungary</option>
+                        <option>Belgium</option>
+                        <option>Netherlands</option>
+                        <option>Italy</option>
+                        <option>Singapore</option>
+                        <option>Japan</option>
+                        <option>United States</option>
+                        <option>Mexico</option>
+                        <option>Brazil</option>
+                        <option>Abu Dhabi</option>
                     </select>
-                    <div >
-                        <svg id="svggraph" viewBox="-100 -100 1940 1805">
+
+                    <div className="wdad">
+                    {driver.map((driver, index) => (
+                        <li key={index}>{driver}</li>
+                    ))}
+                    </div>
+                    <div>
+                        {/* <svg id="svggraph" viewBox="-100 -100 1940 1805">
                             <rect class="bar" fill="blue" width="10" x="1690" y="1328" height="177"></rect>
                             <rect class="bar" fill="#ffd311fb" width="10" x="1710" y="856" height="649"></rect>
                             <rect class="bar" fill="blue" width="10" x="1720" y="1350" height="155"></rect>
-                            <rect y="0" width="1740" height="1505" fill="transparent" stroke="black" stroke-width="1"></rect><text
-                                x="-40" y="15" font-size="15">1505</text> <text x="-40" y="1505" font-size="15">0</text><text
-                                    x="0" y="-20" font-size="40">Attendance Chart</text><text x="1640" y="20"
-                                        font-size="15">24/11/2022</text><text x="10" y="20" font-size="15">28/09/2022</text><text x="0"
-                                            y="1530" font-size="11.3">In-person log: 199 207 103 0 0 119 182 246 224 190 0 0 194 237 166 99
+                            <rect y="0" width="1740" height="1505" fill="transparent" stroke="black" stroke-strokeWidth="1"></rect><text
+                                x="-40" y="15" fontSize="15">1505</text> <text x="-40" y="1505" fontSize="15">0</text><text
+                                    x="0" y="-20" fontSize="40">Attendance Chart</text><text x="1640" y="20"
+                                        fontSize="15">24/11/2022</text><text x="10" y="20" fontSize="15">28/09/2022</text><text x="0"
+                                            y="1530" fontSize="11.3">In-person log: 199 207 103 0 0 119 182 246 224 190 0 0 194 237 166 99
                                 119 0 0 128 158 87 232 127 0 0 179 101 217 223 180 0 0 96 217 249 185 214 0 0 99 165 189 219 211
-                                0 0 126 216 99 180 181 0 0 190 92 177 155</text><text x="0" y="1555" font-size="11.3">Online
+                                0 0 126 216 99 180 181 0 0 190 92 177 155</text><text x="0" y="1555" fontSize="11.3">Online
                                     log: 1325 1063 1064 946 776 971 974 530 1505 817 1356 532 1031 1194 581 957 1498 1270 884 1467
                                     1223 776 1302 961 723 1225 992 1386 1242 1186 720 1405 1346 1150 721 986 1226 601 1225 1414 981
                                     828 973 1317 1272 797 1170 789 724 569 1199 1436 1437 1409 594 608 1462 649</text>
-                        </svg>
+                        </svg> */}
                     </div>
                 </div>
             </div>
