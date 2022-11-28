@@ -10,7 +10,7 @@ let arr = [];
 let defArr = [];
 let curTeamArr = [];
 let teamArr = [];
-let drivers = [];
+
 
 function StockSearch() {
 
@@ -104,6 +104,7 @@ function StockSearch() {
 
     const handleDropdownDrivers = (e) => {
         setDriver([]);
+        let drivers = [];
         console.log(e.target.value)
         console.log(team)
 
@@ -111,13 +112,15 @@ function StockSearch() {
             response => response.json()
         ).then((response) => {
             for (const element in response) {
-
+                console.log(response)
+                console.log(drivers[element])
+                drivers.push(response[element])
                 setDriver(prevResult => {
-
+                    
                     return [...prevResult, drivers[element]]
                 });
             }
-            console.log(driver)
+            
         });
         
     }
@@ -185,7 +188,7 @@ function StockSearch() {
 
                     <div className="wdad">
                     {driver.map((driver, index) => (
-                        <li key={index}>{driver}</li>
+                        <li key={index}><strong>Driver:</strong> {driver.driver}  <strong>Race Position:</strong> {driver.racePosition}</li>
                     ))}
                     </div>
                     <div>
