@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 // import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { isCompositeComponent } from "react-dom/test-utils";
+import * as ReactDOM from 'react-dom';
 
 let done = 0;
 
@@ -64,7 +65,7 @@ function StockSearch() {
         }
         done = 1;
 
-    }, [value])
+    })
 
     const handleDropdownChange = (e) => {
 
@@ -126,6 +127,18 @@ function StockSearch() {
         
     }
 
+    const root = ReactDOM.createRoot(document.getElementById('root'))
+    function tick() {
+        const element = (
+          <div>
+            <h1>Hello, world!</h1>
+            <h2>It is {new Date().toLocaleTimeString()}.</h2>
+          </div>
+        );
+        root.render(element);
+      }
+
+      setInterval(tick, 1000);
 
     return (
         <>
@@ -135,6 +148,9 @@ function StockSearch() {
                     <input type="text" onChange={(event) => setValue(event.target.value)} value={value} />
                 </label>
 
+                <div id="root">
+
+</div>
 
 
                 <div className="w">
