@@ -100,6 +100,7 @@ function StockSearch() {
 
     function closeNav() {
         setNavOpen(false)
+        setDriver([]);
     }
 
     const handleDropdownDrivers = (e) => {
@@ -186,12 +187,14 @@ function StockSearch() {
                         <option>Abu Dhabi</option>
                     </select>
 
-                    <div className="wdad">
+                    <div>
                     {driver.map((driver, index) => (
                         <li key={index}><strong>Driver:</strong> {driver.driver}  <strong>Race Position:</strong> {driver.racePosition}</li>
                     ))}
                     </div>
                     <div>
+
+                        {/*https://www.alphavantage.co/query?function=HT_TRENDLINE&symbol=IBM&interval=daily&series_type=close&apikey=demo*/}
                         {/* <svg id="svggraph" viewBox="-100 -100 1940 1805">
                             <rect class="bar" fill="blue" width="10" x="1690" y="1328" height="177"></rect>
                             <rect class="bar" fill="#ffd311fb" width="10" x="1710" y="856" height="649"></rect>
