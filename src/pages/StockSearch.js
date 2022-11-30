@@ -118,27 +118,16 @@ function StockSearch() {
                 console.log(drivers[element])
                 drivers.push(response[element])
                 setDriver(prevResult => {
-                    
+
                     return [...prevResult, drivers[element]]
                 });
             }
-            
+
         });
-        
+
     }
 
-    const root = ReactDOM.createRoot(document.getElementById('root'))
-    function tick() {
-        const element = (
-          <div>
-            <h1>Hello, world!</h1>
-            <h2>It is {new Date().toLocaleTimeString()}.</h2>
-          </div>
-        );
-        root.render(element);
-      }
 
-      setInterval(tick, 1000);
 
     return (
         <>
@@ -148,9 +137,7 @@ function StockSearch() {
                     <input type="text" onChange={(event) => setValue(event.target.value)} value={value} />
                 </label>
 
-                <div id="root">
-
-</div>
+   
 
 
                 <div className="w">
@@ -204,28 +191,20 @@ function StockSearch() {
                     </select>
 
                     <div>
-                    {driver.map((driver, index) => (
-                        <li key={index}><strong>Driver:</strong> {driver.driver}  <strong>Race Position:</strong> {driver.racePosition}</li>
-                    ))}
+                        {driver.map((driver, index) => (
+                            <li key={index}><strong>Driver:</strong> {driver.driver}  <strong>Race Position:</strong> {driver.racePosition}</li>
+                        ))}
                     </div>
                     <div>
 
-                        {/*https://www.alphavantage.co/query?function=HT_TRENDLINE&symbol=IBM&interval=daily&series_type=close&apikey=demo*/}
-                        {/* <svg id="svggraph" viewBox="-100 -100 1940 1805">
-                            <rect class="bar" fill="blue" width="10" x="1690" y="1328" height="177"></rect>
-                            <rect class="bar" fill="#ffd311fb" width="10" x="1710" y="856" height="649"></rect>
-                            <rect class="bar" fill="blue" width="10" x="1720" y="1350" height="155"></rect>
-                            <rect y="0" width="1740" height="1505" fill="transparent" stroke="black" stroke-strokeWidth="1"></rect><text
-                                x="-40" y="15" fontSize="15">1505</text> <text x="-40" y="1505" fontSize="15">0</text><text
-                                    x="0" y="-20" fontSize="40">Attendance Chart</text><text x="1640" y="20"
-                                        fontSize="15">24/11/2022</text><text x="10" y="20" fontSize="15">28/09/2022</text><text x="0"
-                                            y="1530" fontSize="11.3">In-person log: 199 207 103 0 0 119 182 246 224 190 0 0 194 237 166 99
-                                119 0 0 128 158 87 232 127 0 0 179 101 217 223 180 0 0 96 217 249 185 214 0 0 99 165 189 219 211
-                                0 0 126 216 99 180 181 0 0 190 92 177 155</text><text x="0" y="1555" fontSize="11.3">Online
-                                    log: 1325 1063 1064 946 776 971 974 530 1505 817 1356 532 1031 1194 581 957 1498 1270 884 1467
-                                    1223 776 1302 961 723 1225 992 1386 1242 1186 720 1405 1346 1150 721 986 1226 601 1225 1414 981
-                                    828 973 1317 1272 797 1170 789 724 569 1199 1436 1437 1409 594 608 1462 649</text>
-                        </svg> */}
+                    <svg class="svggraph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 850 ">
+  <polyline fill="none" stroke="#0074d9" stroke-width="2"
+    points="0,240,10,248,20,147,30,273,40,285,50,162,60,223,70,286,80,265,90,231,100,257,110,288,120,235,130,278,140,208,150,143,160,163,170,225,180,115,190,171,200,200,210,131,220,273,230,170,240,136,250,183,260,221,270,145,280,258,290,264,300,222,310,271,320,125,330,140,340,258,350,289,360,227,370,255,380,241,390,132,400,144,410,207,420,230,430,260,440,252,450,278,460,204,470,169,480,257,490,143,500,222,510,223,520,149,530,121,540,232,550,136,560,219,570,198,580,231,590,150,600,110,610,263,620,160,630,282,640,179,650,160,660,205,670,160,680,262,690,128,700,182,710,133,720,220,730,233,740,141,750,219,760,289,770,121,780,261,790,226,800,284,810,202,820,256,830,213,840,231,850,164,860,193,870,148,880,151,890,190,900,113,910,256">
+  </polyline>
+ <text x="918.1" y="95">Max:289</text><text x="918.1" y="284">Min:81</text><text x=""
+    y="307">31/08/2022</text><text x="830.1" y="307">30/11/2022</text><text x="" y="330">played: </text>
+   <rect x=""y="81" width="915.1" height="209" fill="transparent" stroke="black" stroke-width="1"> </rect>
+</svg>
                     </div>
                 </div>
             </div>
