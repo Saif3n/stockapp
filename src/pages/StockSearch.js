@@ -19,6 +19,7 @@ function StockSearch() {
     const [result, setResult] = useState([]);
     const [sponsor, setSponsor] = useState('');
     const [stock, setStock] = useState('');
+    const [date, setDate] = useState('');
     const [team, setTeam] = useState('');
     const [driver, setDriver] = useState([]);
     const [navOpen, setNavOpen] = useState(false);
@@ -122,8 +123,8 @@ function StockSearch() {
             for (const element in response) {
 
                 drivers.push(response[element])
+                setDate(drivers[element].raceDate);
                 setDriver(prevResult => {
-
                     return [...prevResult, drivers[element]]
                 });
             }
@@ -195,8 +196,12 @@ function StockSearch() {
                     </select>
 
                     <div>
+                    <li><strong>Race Date:</strong>{date}</li>
                         {driver.map((driver, index) => (
+                            <>
+                            
                             <li key={index}><strong>Driver:</strong> {driver.driver}  <strong>Race Position:</strong> {driver.racePosition}</li>
+                            </>
                         ))}
                         <li>{stock}</li>
                     </div>
