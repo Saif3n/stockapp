@@ -11,6 +11,7 @@ let arr = [];
 let defArr = [];
 let curTeamArr = [];
 let teamArr = [];
+const raceArr = ['Bahrain', 'Saudi Arabia', 'Australia', 'Emilia Romagna', 'Miami', 'Spain', 'Monaco', 'Azerbaijan', 'Canada', 'Great Britain', 'Austria', 'France', 'Hungary', 'Belgium', 'Netherlands', 'Italy', 'Singapore', 'Japan', 'United States', 'Mexico', 'Brazil', 'Abu Dhabi']
 
 
 function StockSearch() {
@@ -67,7 +68,7 @@ function StockSearch() {
         }
         done = 1;
 
-    },[value])
+    }, [value])
     // rerenders when value dependency changes
 
     const handleDropdownChange = (e) => {
@@ -139,7 +140,7 @@ function StockSearch() {
             <div>
                 <label>
                     Search for a sponsor:
-                    <input type="text" onChange={(event) => setValue(event.target.value)}value={value} />
+                    <input type="text" onChange={(event) => setValue(event.target.value)} value={value} />
                 </label>
 
 
@@ -148,7 +149,7 @@ function StockSearch() {
                 <div className="w">
                     <select id="dropdown-basic-button" title="Dropdown button" onChange={handleDropdownChange}>
                         {teamArr.map((teamArr, index) => (
-                            <option className={'op' + teamArr}  key={index}>{teamArr}</option>
+                            <option className={'op' + teamArr} key={index}>{teamArr}</option>
                         ))}
                     </select>
                 </div>
@@ -164,62 +165,42 @@ function StockSearch() {
                 </div>
             </div>
 
+            <>
+                <div className={'o' + team} id="overlay" style={{ height: navOpen ? 100 + '%' : 0 + '%' }} onLoad={() => handleDropdownDrivers('Bahrain')}>
+                    <h1 className="closebtn" onClick={closeNav}>x</h1>
+                    <div className="overlay-content">
+                        <h1 className="href">{sponsor}</h1>
+                        <select id="dropdown-basic-button" title="Dropdown button" onChange={handleDropdownDrivers}>
+                            {raceArr.map((raceArr, index) => (
+                                <option key={index}>{raceArr}</option>
+                            ))}
 
-            <div className={'o' + team} id="overlay" style={{ height: navOpen ? 100 + '%' : 0 + '%' }} >
-                <h1 className="closebtn" onClick={closeNav}>x</h1>
-                <div className="overlay-content">
-                    <h1 className="href">{sponsor}</h1>
-                    <select id="dropdown-basic-button" title="Dropdown button" onChange={handleDropdownDrivers}>
-                        <option>{'<- Select an option ->'}</option>
-                        <option>Bahrain</option>
-                        <option>Saudi Arabia</option>
-                        <option>Australia</option>
-                        <option>Emilia Romagna</option>
-                        <option>Miami</option>
-                        <option>Spain</option>
-                        <option>Monaco</option>
-                        <option>Azerbaijan</option>
-                        <option>Canada</option>
-                        <option>Great Britain</option>
-                        <option>Austria</option>
-                        <option>France</option>
-                        <option>Hungary</option>
-                        <option>Belgium</option>
-                        <option>Netherlands</option>
-                        <option>Italy</option>
-                        <option>Singapore</option>
-                        <option>Japan</option>
-                        <option>United States</option>
-                        <option>Mexico</option>
-                        <option>Brazil</option>
-                        <option>Abu Dhabi</option>
-                    </select>
+                        </select>
 
-                    <div>
-                    <li><strong>Race Date:</strong>{date}</li>
-                        {driver.map((driver, index) => (
-                            <>
-                            
-                            <li key={index}><strong>Driver:</strong> {driver.driver}  <strong>Race Position:</strong> {driver.racePosition}</li>
-                            </>
-                        ))}
-                        <li>{stock}</li>
-                    </div>
-                    <div>
+                        <div>
+                            <li><strong>Race Date:</strong>{date}</li>
+                            {driver.map((driver, index) => (
+                                <li key={index}><strong>Driver:</strong> {driver.driver}  <strong>Race Position:</strong> {driver.racePosition}</li>
+                            ))}
+                            <li>{stock}</li>
+                        </div>
+                        <div>
 
-                        <svg className="svggraph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 850 ">
-                            <polyline fill="none" stroke="#0074d9" strokeWidth="2"
-                                points="0,240,10,248,20,147,30,273,40,285,50,162,60,223,70,286,80,265,90,231,100,257,110,288,120,235,130,278,140,208,150,143,160,163,170,225,180,115,190,171,200,200,210,131,220,273,230,170,240,136,250,183,260,221,270,145,280,258,290,264,300,222,310,271,320,125,330,140,340,258,350,289,360,227,370,255,380,241,390,132,400,144,410,207,420,230,430,260,440,252,450,278,460,204,470,169,480,257,490,143,500,222,510,223,520,149,530,121,540,232,550,136,560,219,570,198,580,231,590,150,600,110,610,263,620,160,630,282,640,179,650,160,660,205,670,160,680,262,690,128,700,182,710,133,720,220,730,233,740,141,750,219,760,289,770,121,780,261,790,226,800,284,810,202,820,256,830,213,840,231,850,164,860,193,870,148,880,151,890,190,900,113,910,256">
-                            </polyline>
-                            <text x="918.1" y="95">Max:289</text><text x="918.1" y="284">Min:81</text><text
-                                y="307">31/08/2022</text><text x="830.1" y="307">30/11/2022</text><text y="330">played: </text>
-                            <rect y="81" width="915.1" height="209" fill="transparent" stroke="black" strokeWidth="1"></rect>
-                        </svg>
+                            <svg className="svggraph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 850 ">
+                                <polyline fill="none" stroke="#0074d9" strokeWidth="2"
+                                    points="0,240,10,248,20,147,30,273,40,285,50,162,60,223,70,286,80,265,90,231,100,257,110,288,120,235,130,278,140,208,150,143,160,163,170,225,180,115,190,171,200,200,210,131,220,273,230,170,240,136,250,183,260,221,270,145,280,258,290,264,300,222,310,271,320,125,330,140,340,258,350,289,360,227,370,255,380,241,390,132,400,144,410,207,420,230,430,260,440,252,450,278,460,204,470,169,480,257,490,143,500,222,510,223,520,149,530,121,540,232,550,136,560,219,570,198,580,231,590,150,600,110,610,263,620,160,630,282,640,179,650,160,660,205,670,160,680,262,690,128,700,182,710,133,720,220,730,233,740,141,750,219,760,289,770,121,780,261,790,226,800,284,810,202,820,256,830,213,840,231,850,164,860,193,870,148,880,151,890,190,900,113,910,256">
+                                </polyline>
+                                <text x="918.1" y="95">Max:289</text><text x="918.1" y="284">Min:81</text><text
+                                    y="307">31/08/2022</text><text x="830.1" y="307">30/11/2022</text><text y="330">played: </text>
+                                <rect y="81" width="915.1" height="209" fill="transparent" stroke="black" strokeWidth="1"></rect>
+                            </svg>
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
+
+            </>
         </>
 
 
