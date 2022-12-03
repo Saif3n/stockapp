@@ -11,7 +11,7 @@ let arr = [];
 let defArr = [];
 let curTeamArr = [];
 let teamArr = [];
-const raceArr = ['Bahrain', 'Saudi Arabia', 'Australia', 'Emilia Romagna', 'Miami', 'Spain', 'Monaco', 'Azerbaijan', 'Canada', 'Great Britain', 'Austria', 'France', 'Hungary', 'Belgium', 'Netherlands', 'Italy', 'Singapore', 'Japan', 'United States', 'Mexico', 'Brazil', 'Abu Dhabi']
+const raceArr = ['<- Select an option ->','Bahrain', 'Saudi Arabia', 'Australia', 'Emilia Romagna', 'Miami', 'Spain', 'Monaco', 'Azerbaijan', 'Canada', 'Great Britain', 'Austria', 'France', 'Hungary', 'Belgium', 'Netherlands', 'Italy', 'Singapore', 'Japan', 'United States', 'Mexico', 'Brazil', 'Abu Dhabi']
 
 
 function StockSearch() {
@@ -109,6 +109,7 @@ function StockSearch() {
     function closeNav() {
         setNavOpen(false)
         setDriver([]);
+        setDate('');
     }
 
     const handleDropdownDrivers = (e) => {
@@ -134,7 +135,7 @@ function StockSearch() {
 
     }
 
-
+    //https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo
     return (
         <>
             <div>
