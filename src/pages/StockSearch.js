@@ -11,7 +11,9 @@ let arr = [];
 let defArr = [];
 let curTeamArr = [];
 let teamArr = [];
-const raceArr = ['<- Select an option ->','Bahrain', 'Saudi Arabia', 'Australia', 'Emilia Romagna', 'Miami', 'Spain', 'Monaco', 'Azerbaijan', 'Canada', 'Great Britain', 'Austria', 'France', 'Hungary', 'Belgium', 'Netherlands', 'Italy', 'Singapore', 'Japan', 'United States', 'Mexico', 'Brazil', 'Abu Dhabi']
+
+const seasonStart = '2022-03-18';
+const raceArr = ['<- Select an option ->', 'Bahrain', 'Saudi Arabia', 'Australia', 'Emilia Romagna', 'Miami', 'Spain', 'Monaco', 'Azerbaijan', 'Canada', 'Great Britain', 'Austria', 'France', 'Hungary', 'Belgium', 'Netherlands', 'Italy', 'Singapore', 'Japan', 'United States', 'Mexico', 'Brazil', 'Abu Dhabi']
 
 
 function StockSearch() {
@@ -102,6 +104,15 @@ function StockSearch() {
         setSponsor(sponsor);
         setStock(stock)
         setTeam(team);
+
+        const fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo");
+        const data = fetchPromise.then(response => response.json()).then((response) => {
+            // for (element in response) {
+            //     console.log(response[element].sponsorName)
+            // }
+            // console.log(response)
+            console.log(response['Time Series (Daily)']['1999-12-01'])
+        });
 
 
     }
