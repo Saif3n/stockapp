@@ -3,6 +3,8 @@ import './App.css';
 import Stock from './pages/Stock';
 import StockSearch from './pages/StockSearch';
 
+import Wda from './pages/Wda';
+
 
 
 
