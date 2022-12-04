@@ -13,7 +13,7 @@ function Stock() {
         arr.push(response['Time Series (Daily)']['2022-03-18']['4. close'])
 
         for (const element in response['Time Series (Daily)']){
-            console.log(element);
+            console.log(response['Time Series (Daily)'][element]["4. close"]);
         }
     });
 
