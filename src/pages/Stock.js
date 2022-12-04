@@ -4,11 +4,13 @@ import React from "react"
 
 function Stock() {
     let element = 0;
-    const fetchPromise = fetch("https://localhost:7024/GetAllSponsors");
+    const fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo");
     const data = fetchPromise.then(response => response.json()).then((response) => {
-        for (element in response) {
-            console.log(response[element].sponsorName)
-        }
+        // for (element in response) {
+        //     console.log(response[element].sponsorName)
+        // }
+        // console.log(response)
+        console.log(response['Time Series (Daily)']['1999-12-01'])
     });
 
 
