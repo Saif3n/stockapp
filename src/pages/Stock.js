@@ -2,6 +2,7 @@
 import React from "react"
 
 let arr = [];
+let revArr = [];
 let count= 0;
 const date = new Date('2022-03-18');
 const lastDate = new Date('2022-11-22');
@@ -13,17 +14,22 @@ function Stock() {
         //     console.log(response[element].sponsorName)
         // }
         // console.log(response)
-        arr.push(response['Time Series (Daily)']['2022-03-18']['4. close'])
+
+        // arr.push(response['Time Series (Daily)']['2022-03-18']['4. close'])
 
         for (const element in response['Time Series (Daily)']) {
             const dater = new Date(element);
             
             if (dater > date && dater < lastDate) {
                 count++;
-                console.log(response['Time Series (Daily)'][element]["4. close"]);
+                arr.push(element +' - THE DATE - '+response['Time Series (Daily)'][element]["4. close"])
             }
         }
-        console.log(count)
+        revArr = arr.slice().reverse();
+        // unreveresed
+        console.log(arr)
+        // reversed
+        console.log(revArr)
     });
 
 
