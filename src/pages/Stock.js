@@ -4,10 +4,12 @@ import React from "react"
 let arr = [];
 let revArr = [];
 let count= 0;
+let polyLine = '';
 const date = new Date('2022-03-18');
 const lastDate = new Date('2022-11-22');
 function Stock() {
     let element = 0;
+    let val = 0;
     const fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo");
     const data = fetchPromise.then(response => response.json()).then((response) => {
         // for (element in response) {
@@ -21,15 +23,23 @@ function Stock() {
             const dater = new Date(element);
             
             if (dater > date && dater < lastDate) {
-                count++;
-                arr.push(element +' - THE DATE - '+response['Time Series (Daily)'][element]["4. close"])
+    
+                // arr.push(element +' - THE DATE - '+ response['Time Series (Daily)'][element]["4. close"])
+                polyLine = polyLine.concat(val, ",");
+                polyLine = polyLine.concat(response['Time Series (Daily)'][element]["4. close"], ",");
+                val = val+1;
+
             }
+            
         }
         revArr = arr.slice().reverse();
         // unreveresed
-        console.log(arr)
+
         // reversed
-        console.log(revArr)
+
+        polyLine = polyLine.slice(0, polyLine.length - 1)
+        console.log(polyLine);
+
     });
 
 
