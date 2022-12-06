@@ -4,6 +4,6 @@
     ">
   </polyline>
  <text x="912.1" y="95">Max:289</text><text x="912.1" y="284">Min:81</text><text x=""
-    y="307">31/08/2022</text><text x="830.1" y="307">30/11/2022</text><text x="" y="330">played: </text>
-   <rect x=""y="81" width="915.1" height="209" fill="transparent" stroke="black" stroke-width="1"> </rect>
+    y="307">31/08/2022</text><text x="" y="330">played: </text>
+   <rect x=""y="81" width="255.1" height="209" fill="transparent" stroke="black" stroke-width="1"> </rect>
 </svg>

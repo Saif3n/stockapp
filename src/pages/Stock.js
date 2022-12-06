@@ -3,7 +3,7 @@ import React from "react"
 
 let arr = [];
 let revArr = [];
-let count= 0;
+
 let polyLine = '';
 const date = new Date('2022-03-18');
 const lastDate = new Date('2022-11-22');
