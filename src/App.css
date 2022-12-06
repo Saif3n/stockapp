@@ -192,10 +192,12 @@ li{
   cursor:pointer;
 }
 
-#svggraph {
-  max-width: 40%;
-  max-height: 10%;
-  background-color: #8b8686;
+.svggraph {
+min-width:10%;
+max-width:25%;
+margin-left:auto;
+margin-right:auto;
+
 }
 
 @media screen and (max-height: 450px) {

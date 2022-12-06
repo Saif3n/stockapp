@@ -129,7 +129,7 @@ function StockSearch() {
 
                 if (dater > date && dater < lastDate) {
                     curr = parseInt(response['Time Series (Daily)'][element]["4. close"]) + 50;
-                    
+
                     polyLine = polyLine.concat(val, ",");
                     polyLine = polyLine.concat(curr, ",");
                     val = val + 1.5;
@@ -222,13 +222,13 @@ function StockSearch() {
                         </div>
                         <div>
 
-                            <svg className="svggraph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 850 ">
-                                <polyline fill="none" stroke="#0074d9" strokeWidth="2"
+                            <svg className="svggraph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 750 ">
+                                <polyline fill="none" stroke="#0074d9" strokeWidth="1"
                                     points={poly}>
                                 </polyline>
-                                <text x="918.1" y="95">Max:289</text><text x="918.1" y="284">Min:81</text><text
-                                    y="307">31/08/2022</text><text x="830.1" y="307">30/11/2022</text><text y="330">played: </text>
-                                <rect y="81" width="915.1" height="209" fill="transparent" stroke="black" strokeWidth="1"></rect>
+                                {/* <text x="918.1" y="95">Max:289</text><text x="918.1" y="284">Min:81</text><text
+                                    y="307">31/08/2022</text><text x="830.1" y="307">30/11/2022</text><text y="330">played: </text> */}
+                                <rect y="81" width="255" height="209" fill="transparent" stroke="black" strokeWidth="1"></rect>
                             </svg>
                         </div>
                     </div>
