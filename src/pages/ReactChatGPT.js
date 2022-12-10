@@ -54,20 +54,6 @@ const ReactChatGPT = () => {
       .attr('stroke-linecap', 'round')
       .attr('stroke-width', 1.5)
       .attr('d', line);
-
-    svg
-      .append('rect')
-      .attr('fill', 'white')
-      .attr('stroke', 'black')
-      .attr('x', margin.left)
-      .attr('y', margin.top)
-      .attr('width', width)
-      .attr('height', height);
-
-    svg
-      .append('g')
-      .call(d3.axisLeft(y))
-      .attr('transform', `translate(${margin.left},${margin.top})`);
   };
 
   return (
