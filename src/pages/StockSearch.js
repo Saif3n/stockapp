@@ -134,8 +134,6 @@ function StockSearch() {
 
             }
             setPoly(polyLineData.join(","));
-            let fuck = polyLineData.join(",");
-            console.log(fuck)
 
         })
     }
@@ -223,12 +221,6 @@ function StockSearch() {
                         </div>
                         <div>
                         {showGraph && <LineGraph ref={lineGraphRef} />}
-                            {/* <svg className="svggraph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 750 ">
-                                <polyline fill="none" stroke="#0074d9" strokeWidth="1"
-                                    points={poly}>
-                                </polyline>
-                                <rect y="81" width="255" height="209" fill="transparent" stroke="black" strokeWidth="1"></rect>
-                            </svg> */}
                         </div>
                     </div>
                 </div>
