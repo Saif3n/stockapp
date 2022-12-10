@@ -116,27 +116,21 @@ function StockSearch() {
 
         const fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+stock+"&outputsize=full&apikey=" + process.env.STOCK_API);
         const data = fetchPromise.then(response => response.json()).then((response) => {
-            // for (element in response) {
-            //     console.log(response[element].sponsorName)
-            // }
-            // console.log(response)
 
-            // arr.push(response['Time Series (Daily)']['2022-03-18']['4. close'])
-
+            const polyLineData=[];
             for (const element in response['Time Series (Daily)']) {
                 const dater = new Date(element);
 
                 if (dater > date && dater < lastDate) {
                     curr = parseInt(response['Time Series (Daily)'][element]["4. close"]) + 50;
 
-                    polyLine = polyLine.concat(val, ",");
-                    polyLine = polyLine.concat(curr, ",");
+                    polyLineData.push(val, curr);
                     val = val + 1.5;
 
                 }
 
             }
-            setPoly(polyLine);
+            setPoly(polyLineData.join(","));
         })
     }
 
