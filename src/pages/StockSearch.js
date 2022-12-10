@@ -131,6 +131,9 @@ function StockSearch() {
 
             }
             setPoly(polyLineData.join(","));
+            let fuck = polyLineData.join(",");
+            console.log(fuck)
+      
         })
     }
 
