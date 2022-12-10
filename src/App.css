@@ -37,6 +37,10 @@
     transform: rotate(360deg);
   }
 }
+body {
+  margin: 0;
+  padding: 0;
+}
 
 ul{
   border: 1px solid black;
@@ -220,3 +224,12 @@ margin-right:auto;
 
 }
 
+.centered {
+  margin: 0 auto;
+  width: 800px;
+  height: 600px;
+}
+
+.w{
+  margin-left:50%;
+}

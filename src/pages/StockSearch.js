@@ -102,20 +102,19 @@ function StockSearch() {
 
 
     function openNav(sponsor, team, stock) {
-        setNavOpen(true)
+        setNavOpen(true);
         setSponsor(sponsor);
-        setStock(stock)
+        setStock(stock);
         setTeam(team);
 
         let polyLine = '';
         const date = new Date('2022-03-18');
         const lastDate = new Date('2022-11-22');
 
-        let element = 0;
         let val = 0;
         let curr = 0;
 
-        const fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo");
+        const fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+stock+"&outputsize=full&apikey=" + process.env.STOCK_API);
         const data = fetchPromise.then(response => response.json()).then((response) => {
             // for (element in response) {
             //     console.log(response[element].sponsorName)
@@ -142,9 +141,10 @@ function StockSearch() {
     }
 
     function closeNav() {
-        setNavOpen(false)
+        setNavOpen(false);
         setDriver([]);
         setDate('');
+        setPoly('');
     }
 
     const handleDropdownDrivers = (e) => {
