@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 // import Dropdown from 'react-bootstrap/Dropdown';
 // import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { isCompositeComponent } from "react-dom/test-utils";
 import * as ReactDOM from 'react-dom';
+import LineGraph from './LineGraph';
 
 let done = 0;
 
@@ -28,7 +29,8 @@ function StockSearch() {
     const [team, setTeam] = useState('');
     const [driver, setDriver] = useState([]);
     const [navOpen, setNavOpen] = useState(false);
-
+    const [showGraph, setShowGraph] = useState(false);
+    const lineGraphRef = useRef();
 
     useEffect(() => {
         if (done === 0) {
@@ -106,6 +108,7 @@ function StockSearch() {
         setSponsor(sponsor);
         setStock(stock);
         setTeam(team);
+        setShowGraph(!showGraph);
 
         let polyLine = '';
         const date = new Date('2022-03-18');
@@ -114,10 +117,10 @@ function StockSearch() {
         let val = 0;
         let curr = 0;
 
-        const fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+stock+"&outputsize=full&apikey=" + process.env.STOCK_API);
+        const fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + stock + "&outputsize=full&apikey=" + process.env.STOCK_API);
         const data = fetchPromise.then(response => response.json()).then((response) => {
 
-            const polyLineData=[];
+            const polyLineData = [];
             for (const element in response['Time Series (Daily)']) {
                 const dater = new Date(element);
 
@@ -133,7 +136,7 @@ function StockSearch() {
             setPoly(polyLineData.join(","));
             let fuck = polyLineData.join(",");
             console.log(fuck)
-      
+
         })
     }
 
@@ -142,6 +145,7 @@ function StockSearch() {
         setDriver([]);
         setDate('');
         setPoly('');
+        setShowGraph(!showGraph);
     }
 
     const handleDropdownDrivers = (e) => {
@@ -218,15 +222,13 @@ function StockSearch() {
                             <li>{stock}</li>
                         </div>
                         <div>
-
-                            <svg className="svggraph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 750 ">
+                        {showGraph && <LineGraph ref={lineGraphRef} />}
+                            {/* <svg className="svggraph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 750 ">
                                 <polyline fill="none" stroke="#0074d9" strokeWidth="1"
                                     points={poly}>
                                 </polyline>
-                                {/* <text x="918.1" y="95">Max:289</text><text x="918.1" y="284">Min:81</text><text
-                                    y="307">31/08/2022</text><text x="830.1" y="307">30/11/2022</text><text y="330">played: </text> */}
                                 <rect y="81" width="255" height="209" fill="transparent" stroke="black" strokeWidth="1"></rect>
-                            </svg>
+                            </svg> */}
                         </div>
                     </div>
                 </div>
