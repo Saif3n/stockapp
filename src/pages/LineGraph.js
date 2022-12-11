@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
 const LineGraph = React.forwardRef((props, ref) => {
-
+  const [dataTest, setDataTest] = useState(null);
   const firstRaceDate = new Date('2022-03-18');
   const lastRaceDate = new Date('2022-11-22');
 
