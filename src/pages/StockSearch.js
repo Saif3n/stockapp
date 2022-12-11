@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react"
 // import Dropdown from 'react-bootstrap/Dropdown';
 // import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { isCompositeComponent } from "react-dom/test-utils";
-import * as ReactDOM from 'react-dom';
+
+
 import LineGraph from './LineGraph';
 
 let done = 0;
@@ -13,7 +13,7 @@ let defArr = [];
 let curTeamArr = [];
 let teamArr = [];
 
-const seasonStart = '2022-03-18';
+
 const raceArr = ['<- Select an option ->', 'Bahrain', 'Saudi Arabia', 'Australia', 'Emilia Romagna', 'Miami', 'Spain', 'Monaco', 'Azerbaijan', 'Canada', 'Great Britain', 'Austria', 'France', 'Hungary', 'Belgium', 'Netherlands', 'Italy', 'Singapore', 'Japan', 'United States', 'Mexico', 'Brazil', 'Abu Dhabi']
 
 
@@ -24,7 +24,6 @@ function StockSearch() {
     const [result, setResult] = useState([]);
     const [sponsor, setSponsor] = useState('');
     const [stock, setStock] = useState('');
-    const [poly, setPoly] = useState('');
     const [date, setDate] = useState('');
     const [team, setTeam] = useState('');
     const [driver, setDriver] = useState([]);
@@ -103,46 +102,23 @@ function StockSearch() {
     }
 
 
-    function openNav(sponsor, team, stock) {
+    const openNav = (sponsor, team, stock) => {
         setNavOpen(true);
         setSponsor(sponsor);
         setStock(stock);
         setTeam(team);
         setShowGraph(!showGraph);
 
-        let polyLine = '';
-        const date = new Date('2022-03-18');
-        const lastDate = new Date('2022-11-22');
+        return <LineGraph data = {stock}/>
 
-        let val = 0;
-        let curr = 0;
-
-        const fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + stock + "&outputsize=full&apikey=" + process.env.STOCK_API);
-        const data = fetchPromise.then(response => response.json()).then((response) => {
-
-            const polyLineData = [];
-            for (const element in response['Time Series (Daily)']) {
-                const dater = new Date(element);
-
-                if (dater > date && dater < lastDate) {
-                    curr = parseInt(response['Time Series (Daily)'][element]["4. close"]) + 50;
-
-                    polyLineData.push(val, curr);
-                    val = val + 1.5;
-
-                }
-
-            }
-            setPoly(polyLineData.join(","));
-
-        })
+        
     }
 
     function closeNav() {
         setNavOpen(false);
         setDriver([]);
         setDate('');
-        setPoly('');
+
         setShowGraph(!showGraph);
     }
 
@@ -220,7 +196,7 @@ function StockSearch() {
                             <li>{stock}</li>
                         </div>
                         <div>
-                        {showGraph && <LineGraph ref={lineGraphRef} />}
+                        {showGraph && <LineGraph stockName={stock} ref={lineGraphRef} />}
                         </div>
                     </div>
                 </div>
