@@ -16,10 +16,9 @@ let teamArr = [];
 
 const raceArr = ['<- Select an option ->', 'Bahrain', 'Saudi Arabia', 'Australia', 'Emilia Romagna', 'Miami', 'Spain', 'Monaco', 'Azerbaijan', 'Canada', 'Great Britain', 'Austria', 'France', 'Hungary', 'Belgium', 'Netherlands', 'Italy', 'Singapore', 'Japan', 'United States', 'Mexico', 'Brazil', 'Abu Dhabi']
 
-
-
 function StockSearch() {
 
+  
     const [value, setValue] = useState('');
     const [result, setResult] = useState([]);
     const [sponsor, setSponsor] = useState('');

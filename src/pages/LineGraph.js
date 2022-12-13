@@ -42,10 +42,10 @@ const LineGraph = React.forwardRef((props, ref) => {
       }
 
       console.log(polyLineData);
-      setDataTest(polyLineData);
+      // setDataTest(polyLineData);
 
-      const xCoords = dataTest.filter((d, i) => i % 2 === 0);
-      const yCoords = dataTest.filter((d, i) => i % 2 !== 0);
+      const xCoords = polyLineData.filter((d, i) => i % 2 === 0);
+      const yCoords = polyLineData.filter((d, i) => i % 2 !== 0);
       const coords = d3.zip(xCoords, yCoords)
         .map(d => ({ x: d[0], y: d[1] }));
 
