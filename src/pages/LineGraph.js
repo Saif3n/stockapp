@@ -2,29 +2,24 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
 const LineGraph = React.forwardRef((props, ref) => {
-  const [dataTest, setDataTest] = useState(null);
-  const firstRaceDate = new Date('2022-03-18');
-  const lastRaceDate = new Date('2022-11-22');
 
-  let val = 0;
-  let curr = 0;
+  const firstRaceDate = new Date('2022-04-20');
+  const lastRaceDate = new Date('2022-04-26');
+
 
 
   const name = props.stockName;
-  console.log(name)
+
   const polyLineData = [];
-  let fetchPromise = '';
-
-
 
   const svgRef = useRef();
-
-  const width = 500;
-  const height = 300;
+  const width = 1000;
+  const height = 600;
 
   useEffect(() => {
-
-    fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + name + "&outputsize=full&apikey=" + process.env.STOCK_API);
+    let val = 0;
+    let curr = 0;
+    let fetchPromise = fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + name + "&outputsize=full&apikey=" + process.env.STOCK_API);
 
     fetchPromise.then(response => response.json()).then((response) => {
 
@@ -99,11 +94,7 @@ const LineGraph = React.forwardRef((props, ref) => {
 
     })
 
-
-
-
-
-  }, [fetchPromise, dataTest]);
+  });
 
   return (
     <svg ref={svgRef} width={width} height={height} />

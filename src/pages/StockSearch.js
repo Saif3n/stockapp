@@ -12,13 +12,40 @@ let arr = [];
 let defArr = [];
 let curTeamArr = [];
 let teamArr = [];
-
+const dateArr = [
+    [
+        "2022-03-20",
+        "2022-03-27",
+        "2022-04-10",
+        "2022-04-24",
+        "2022-05-08",
+        "2022-05-22",
+        "2022-05-29",
+        "2022-06-12",
+        "2022-06-19",
+        "2022-07-03",
+        "2022-07-10",
+        "2022-07-24",
+        "2022-07-31",
+        "2022-08-28",
+        "2022-09-04",
+        "2022-09-11",
+        "2022-10-02",
+        "2022-10-09",
+        "2022-10-23",
+        "2022-10-30",
+        "2022-11-13",
+        "2022-11-20"
+    ]
+];
 
 const raceArr = ['<- Select an option ->', 'Bahrain', 'Saudi Arabia', 'Australia', 'Emilia Romagna', 'Miami', 'Spain', 'Monaco', 'Azerbaijan', 'Canada', 'Great Britain', 'Austria', 'France', 'Hungary', 'Belgium', 'Netherlands', 'Italy', 'Singapore', 'Japan', 'United States', 'Mexico', 'Brazil', 'Abu Dhabi']
 
+
+
 function StockSearch() {
 
-  
+
     const [value, setValue] = useState('');
     const [result, setResult] = useState([]);
     const [sponsor, setSponsor] = useState('');
@@ -108,9 +135,9 @@ function StockSearch() {
         setTeam(team);
         setShowGraph(!showGraph);
 
-        return <LineGraph data = {stock}/>
+        // return <LineGraph data={stock} />
 
-        
+
     }
 
     function closeNav() {
@@ -125,8 +152,8 @@ function StockSearch() {
         setDriver([]);
 
         let drivers = [];
-        console.log(e.target.value)
-        console.log(team)
+
+        // return <LineGraph data={stock} />
 
         fetch("https://localhost:7024/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
             response => response.json()
@@ -134,6 +161,7 @@ function StockSearch() {
             for (const element in response) {
 
                 drivers.push(response[element])
+
                 setDate(drivers[element].raceDate);
                 setDriver(prevResult => {
                     return [...prevResult, drivers[element]]
@@ -143,6 +171,7 @@ function StockSearch() {
         });
 
     }
+
 
     //https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo
     return (
@@ -195,7 +224,7 @@ function StockSearch() {
                             <li>{stock}</li>
                         </div>
                         <div>
-                        {showGraph && <LineGraph stockName={stock} ref={lineGraphRef} />}
+                            {showGraph && <LineGraph stockName={stock} ref={lineGraphRef} />}
                         </div>
                     </div>
                 </div>
