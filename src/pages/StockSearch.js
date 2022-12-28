@@ -135,7 +135,6 @@ function StockSearch() {
         setTeam(team);
         setShowGraph(!showGraph);
 
-        // return <LineGraph data={stock} />
 
 
     }
@@ -153,7 +152,6 @@ function StockSearch() {
 
         let drivers = [];
 
-        // return <LineGraph data={stock} />
 
         fetch("https://localhost:7024/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
             response => response.json()
@@ -173,8 +171,7 @@ function StockSearch() {
     }
 
 
-    //https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo
-    return (
+     return (
         <>
             <div>
                 <label>

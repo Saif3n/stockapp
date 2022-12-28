@@ -1,0 +1,70 @@
+[EnableCors("MyPolicy")]
+[Route("api/[controller]")]
+[ApiController]
+public class RestaurantsController : ControllerBase
+{
+    private readonly IRepo _repo;
+
+    public RestaurantsController(IRepo repo)
+    {
+        _repo = repo;
+    }
+
+    [HttpGet]
+    public ActionResult<IEnumerable<Restaurant>> GetAll()
+    {
+        return _repo.GetAll();
+    }
+
+    [HttpGet("{id}", Name = "GetRestaurant")]
+    public ActionResult<Restaurant> GetById(int id)
+    {
+        Restaurant item = _repo.GetById(id);
+        if (item == null)
+        {
+            return NotFound();
+        }
+        return item;
+    }
+
+    [HttpPost]
+    public ActionResult<Restaurant> Create(Restaurant restaurant)
+    {
+        _repo.Create(restaurant);
+
+        return CreatedAtRoute("GetRestaurant", new { id = restaurant.Id }, restaurant);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, Restaurant updatedRestaurant)
+    {
+        Restaurant restaurant = _repo.GetById(id);
+        if (restaurant == null)
+        {
+            return NotFound();
+        }
+
+        restaurant.Name = updatedRestaurant.Name;
+        restaurant.Location = updatedRestaurant.Location;
+        restaurant.Cuisine = updatedRestaurant.Cuisine;
+        restaurant.PriceTier = updatedRestaurant.PriceTier;
+
+        _repo.Update(restaurant);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        Restaurant restaurant = _repo.GetById(id);
+        if (restaurant == null)
+        {
+            return NotFound();
+        }
+
+        _repo.Delete(restaurant);
+
+        return NoContent();
+    }
+}

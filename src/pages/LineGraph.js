@@ -3,9 +3,10 @@ import * as d3 from 'd3';
 
 const LineGraph = React.forwardRef((props, ref) => {
 
-  const firstRaceDate = new Date('2022-04-20');
-  const lastRaceDate = new Date('2022-04-26');
-
+  // const firstRaceDate = new Date('2022-04-20');
+  // const lastRaceDate = new Date('2022-04-26');
+  const firstRaceDate = new Date('2022-03-20');
+  const lastRaceDate = new Date('2022-11-20');
 
 
   const name = props.stockName;
@@ -37,7 +38,6 @@ const LineGraph = React.forwardRef((props, ref) => {
       }
 
       console.log(polyLineData);
-      // setDataTest(polyLineData);
 
       const xCoords = polyLineData.filter((d, i) => i % 2 === 0);
       const yCoords = polyLineData.filter((d, i) => i % 2 !== 0);
@@ -51,7 +51,6 @@ const LineGraph = React.forwardRef((props, ref) => {
         .domain([0, d3.max(coords, d => d.x)])
         .range([margin.left, width - margin.right]);
 
-      // changes accordingly when entering into stocksearc
       const testParse = parseInt(d3.max(coords, d => d.y)) + 100;
       const yScale = d3.scaleLinear()
         .domain([40, testParse])
@@ -64,9 +63,6 @@ const LineGraph = React.forwardRef((props, ref) => {
 
 
       const svg = d3.select(svgRef.current);
-      // svg.append("g")
-      //   .attr("transform", `translate(0, ${height - margin.bottom})`)
-      //   .call(d3.axisBottom(xScale).tickSize(0));
 
       svg.append("rect")
         .attr("x", margin.left)
@@ -88,8 +84,6 @@ const LineGraph = React.forwardRef((props, ref) => {
         .attr("stroke-linecap", "round")
         .attr("stroke-width", 1.5)
         .attr("d", line);
-
-
 
 
     })
