@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-import LineGraph from './LineGraph';
+import TestLineGraph from './TestLineGraph';
 
 let done = 0;
 
@@ -221,7 +221,7 @@ function StockSearch() {
                             <li>{stock}</li>
                         </div>
                         <div>
-                            {showGraph && <LineGraph stockName={stock} ref={lineGraphRef} />}
+                            {showGraph && <TestLineGraph stockName={stock} ref={lineGraphRef} />}
                         </div>
                     </div>
                 </div>
