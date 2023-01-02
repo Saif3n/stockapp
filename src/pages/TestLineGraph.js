@@ -32,12 +32,12 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                     polyLineData.push({ x: dateOfElement, y: closePrice });
                 }
             }
-
+            console.log(polyLineData);
 
             const margin = { top: 20, right: 20, bottom: 30, left: 50 };
 
             const xScale = d3.scaleTime()
-                .domain([firstRaceDate, lastRaceDate])
+                .domain(d3.extent(polyLineData, d => d.x))
                 .range([margin.left, width - margin.right]);
 
             const yScale = d3.scaleLinear()
@@ -91,10 +91,10 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                             .attr('x', xScale(point.x))
                             .attr('y', yScale(point.y) - 5)
                             .attr('text-anchor', 'middle')
-                            .attr('class','mouseover-text')
+                            .attr('class', 'mouseover-text')
                             .text(point.y)
                             .attr('fill', 'green')
-                            .style('font-weight','bold');
+                            .style('font-weight', 'bold');
                     })
                     .on('mouseout', () => {
                         svg.select('.mouseover-text').remove();

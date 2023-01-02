@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.2",
     "d3": "^7.7.0",
-    "json5": "^2.2.2",
+    "json5": "^2.2.3",
     "matplotlib": "^1.0.0",
     "nth-check": "^2.1.1",
     "react": "^18.2.0",
