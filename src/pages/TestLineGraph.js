@@ -85,17 +85,19 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                     .attr('cx', xScale(point.x))
                     .attr('cy', yScale(point.y))
                     .attr('r', 3)
-                    .attr('fill', 'red')
+                    .attr('fill', 'blue')
                     .on('mouseover', () => {
                         svg.append('text')
                             .attr('x', xScale(point.x))
                             .attr('y', yScale(point.y) - 5)
                             .attr('text-anchor', 'middle')
+                            .attr('class','mouseover-text')
                             .text(point.y)
-                            .attr('fill', 'red');
+                            .attr('fill', 'green')
+                            .style('font-weight','bold');
                     })
                     .on('mouseout', () => {
-                        svg.selectAll('text').remove();
+                        svg.select('.mouseover-text').remove();
                     });
             });
 
