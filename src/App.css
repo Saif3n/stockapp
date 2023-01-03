@@ -223,3 +223,9 @@ margin-right:auto;
   filter: invert(1);
 
 }
+.mouseover-text{
+  user-select:none;
+}
+.mouseover-line{
+  user-select:none;
+}

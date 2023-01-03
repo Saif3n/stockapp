@@ -9,6 +9,10 @@ const TestLineGraph = React.forwardRef((props, ref) => {
 
     const name = props.stockName;
 
+    // will reference this from function that calls it
+    const border = "black";
+    const hoverColor = "red";
+    const path = "blue";
 
     const polyLineData = [];
     const svgRef = useRef();
@@ -53,21 +57,28 @@ const TestLineGraph = React.forwardRef((props, ref) => {
             const yMin = yScale.domain()[0];
             const yMax = yScale.domain()[1];
 
+            const xMin = xScale.domain()[0];
+            const xMax = xScale.domain()[1];
+            console.log(xMin);
+            console.log(xMax);
+
 
             svg.append('rect')
                 .attr('x', margin.left)
                 .attr('y', margin.top)
                 .attr('width', width - margin.left - margin.right)
                 .attr('height', height - margin.top - margin.bottom)
-                .attr('stroke', 'black')
+                .attr('stroke', `${border}`)
                 .attr('fill', 'none');
 
             svg.append('g')
                 .attr('transform', `translate(${margin.left}, 0)`)
+                .style('color', `${border}`)
                 .call(d3.axisLeft(yScale));
 
             svg.append('g')
                 .attr('transform', `translate(0, ${height - margin.bottom})`)
+                .style('color', `${border}`)
                 .call(d3.axisBottom(xScale)
                     .ticks(d3.timeDay.every(20))
                     .tickFormat(d3.timeFormat('%m-%d')));
@@ -76,7 +87,7 @@ const TestLineGraph = React.forwardRef((props, ref) => {
             svg.append('path')
                 .datum(polyLineData)
                 .attr('fill', 'none')
-                .attr('stroke', 'steelblue')
+                .attr('stroke', `${path}`)
                 .attr('stroke-linejoin', 'round')
                 .attr('stroke-linecap', 'round')
                 .attr('stroke-width', 1.5)
@@ -102,7 +113,7 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                     .attr('cx', xScale(point.x))
                     .attr('cy', yScale(point.y))
                     .attr('r', 2)
-                    .attr('fill', 'blue')
+                    .attr('fill', `${path}`)
 
                 svg.append('line')
                     .attr('x1', xScale(point.x))
@@ -114,13 +125,14 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                     .attr('stroke-opacity', 0)
                     .attr('class', 'existing-line')
                     .on('mouseover', () => {
+                        
                         svg.append('text')
                             .attr('x', xScale(point.x))
-                            .attr('y', yScale(point.y) - 5)
+                            .attr('y', yScale(point.y) - 20)
                             .attr('text-anchor', 'middle')
                             .attr('class', 'mouseover-text')
                             .text(point.y)
-                            .attr('fill', 'green')
+                            .attr('fill', `${hoverColor}`)
                             .style('font-weight', 'bold');
 
                         // Append vertical line to SVG
@@ -129,28 +141,89 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                             .attr('y1', yScale(yMin))
                             .attr('x2', xScale(point.x))
                             .attr('y2', yScale(yMax))
-                            .attr('stroke', 'green')
+                            .attr('stroke', `${hoverColor}`)
                             .attr('stroke-width', 2)
                             .attr('stroke-dasharray', '3,3')  // Dotted line
-                            .attr('class', 'mouseover-line');
+                            .attr('class', 'mouseover-vert-line');
+
+                        svg.append('line')
+                            .attr('x1', xScale(xMin))
+                            .attr('y1', yScale(point.y))
+                            .attr('x2', xScale(xMax))
+                            .attr('y2', yScale(point.y))
+                            .attr('stroke', `${hoverColor}`)
+                            .attr('stroke-width', 2)
+                            .attr('stroke-dasharray', '3,3')  // Dotted line
+                            .attr('class', 'mouseover-horiz-line');
                     })
-                .on('mouseout', () => {
-                    svg.select('.mouseover-text').remove();
-                    svg.select('.mouseover-line').remove();
-                });
+                    .on('mouseout', () => {
+                        svg.select('.mouseover-text').remove();
+                        svg.select('.mouseover-vert-line').remove();
+                        svg.select('.mouseover-horiz-line').remove();
+                    });
+
+
+            });
+
+
+
+            // polyLineData.forEach(point => {
+            //     svg.append('circle')
+            //       .attr('cx', xScale(point.x))
+            //       .attr('cy', yScale(point.y))
+            //       .attr('r', 2)
+            //       .attr('fill', `${path}`)
+
+            //     svg.append('line')
+            //       .attr('x1', xScale(point.x))
+            //       .attr('y1', yScale(yMin))
+            //       .attr('x2', xScale(point.x))
+            //       .attr('y2', yScale(yMax))
+            //       .attr('stroke', 'white')
+            //       .attr('stroke-width', 7)
+            //       .attr('stroke-opacity', 0)
+            //       .attr('class', 'existing-line')
+            //       .on('mouseover', (event) => {
+                    // const clientX = event.clientX;
+                    // const clientY = event.clientY;
+
+                    // const svgRect = svg.node().getBoundingClientRect();
+                    // const x = clientX - svgRect.left;
+                    // const y = clientY - svgRect.top;
+
+                    // svg.append('text')
+                    //   .attr('x', x)
+                    //   .attr('y', y)
+                    //   .attr('text-anchor', 'middle')
+                    //   .attr('class', 'mouseover-text')
+                    //   .text(point.y)
+                    //   .attr('fill', `${hoverColor}`)
+                    //   .style('font-weight', 'bold');
+
+            //         // Append vertical line to SVG
+            //         svg.append('line')
+            //           .attr('x1', xScale(point.x))
+            //           .attr('y1', yScale(yMin))
+            //           .attr('x2', xScale(point.x))
+            //           .attr('y2', yScale(yMax))
+            //           .attr('stroke', `${hoverColor}`)
+            //           .attr('stroke-width', 2)
+            //           .attr('stroke-dasharray', '3,3')  // Dotted line
+            //           .attr('class', 'mouseover-line');
+            //       })
+            //       .on('mouseout', () => {
+            //         svg.select('.mouseover-text').remove();
+            //         svg.select('.mouseover-line').remove();
+            //       })
+            //   });
 
 
         });
+    }, []);
 
-
-
-
-    });
-}, []);
-
-return (
-    <svg ref={svgRef} width={width} height={height} />
-);
+    return (
+        <svg ref={svgRef} width={width} height={height} />
+    );
 });
 
 export default TestLineGraph;
