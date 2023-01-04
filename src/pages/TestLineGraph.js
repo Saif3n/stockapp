@@ -124,11 +124,16 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                     .attr('stroke-width', 5)
                     .attr('stroke-opacity', 0)
                     .attr('class', 'existing-line')
-                    .on('mouseover', () => {
-                        
+                    .on('mouseover', (event) => {
+                        const clientX = event.clientX;
+               const clientY = event.clientY;
+                        const svgRect = svg.node().getBoundingClientRect();
+                    const x = clientX - svgRect.left;
+                    const y = clientY - svgRect.top;
+                    // yScale(point.y) - 20
                         svg.append('text')
                             .attr('x', xScale(point.x))
-                            .attr('y', yScale(point.y) - 20)
+                            .attr('y', y)
                             .attr('text-anchor', 'middle')
                             .attr('class', 'mouseover-text')
                             .text(point.y)
@@ -164,60 +169,6 @@ const TestLineGraph = React.forwardRef((props, ref) => {
 
 
             });
-
-
-
-            // polyLineData.forEach(point => {
-            //     svg.append('circle')
-            //       .attr('cx', xScale(point.x))
-            //       .attr('cy', yScale(point.y))
-            //       .attr('r', 2)
-            //       .attr('fill', `${path}`)
-
-            //     svg.append('line')
-            //       .attr('x1', xScale(point.x))
-            //       .attr('y1', yScale(yMin))
-            //       .attr('x2', xScale(point.x))
-            //       .attr('y2', yScale(yMax))
-            //       .attr('stroke', 'white')
-            //       .attr('stroke-width', 7)
-            //       .attr('stroke-opacity', 0)
-            //       .attr('class', 'existing-line')
-            //       .on('mouseover', (event) => {
-                    // const clientX = event.clientX;
-                    // const clientY = event.clientY;
-
-                    // const svgRect = svg.node().getBoundingClientRect();
-                    // const x = clientX - svgRect.left;
-                    // const y = clientY - svgRect.top;
-
-                    // svg.append('text')
-                    //   .attr('x', x)
-                    //   .attr('y', y)
-                    //   .attr('text-anchor', 'middle')
-                    //   .attr('class', 'mouseover-text')
-                    //   .text(point.y)
-                    //   .attr('fill', `${hoverColor}`)
-                    //   .style('font-weight', 'bold');
-
-            //         // Append vertical line to SVG
-            //         svg.append('line')
-            //           .attr('x1', xScale(point.x))
-            //           .attr('y1', yScale(yMin))
-            //           .attr('x2', xScale(point.x))
-            //           .attr('y2', yScale(yMax))
-            //           .attr('stroke', `${hoverColor}`)
-            //           .attr('stroke-width', 2)
-            //           .attr('stroke-dasharray', '3,3')  // Dotted line
-            //           .attr('class', 'mouseover-line');
-            //       })
-            //       .on('mouseout', () => {
-            //         svg.select('.mouseover-text').remove();
-            //         svg.select('.mouseover-line').remove();
-            //       })
-            //   });
-
-
         });
     }, []);
 
