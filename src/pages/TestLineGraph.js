@@ -22,7 +22,7 @@ const TestLineGraph = React.forwardRef((props, ref) => {
 
     const dateParser = d3.timeParse("%Y-%m-%d");
 
-    // f1 race dates do not change, find to hardcode
+    // f1 race dates do not change, fine to hardcode
     const dateArr =
         [
             "2022-03-20",

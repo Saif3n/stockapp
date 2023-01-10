@@ -34,7 +34,7 @@ function StockSearch() {
 
     useEffect(() => {
         if (done === 0) {
-            fetch("https://localhost:7024/GetAllSponsors").then(
+            fetch("https://personalbackendreact.azurewebsites.net/GetAllSponsors").then(
                 response => response.json()
             ).then((response) => {
                 teamArr.push('<-- Select a team -->')
