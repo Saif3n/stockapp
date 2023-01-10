@@ -12,6 +12,7 @@ const LineGraph = React.forwardRef((props, ref) => {
   const name = props.stockName;
 
   const polyLineData = [];
+  const testData = [];
 
   const svgRef = useRef();
   const width = 1000;
@@ -30,6 +31,7 @@ const LineGraph = React.forwardRef((props, ref) => {
         if (dateOfElement > firstRaceDate && dateOfElement < lastRaceDate) {
           curr = parseInt(response['Time Series (Daily)'][element]["4. close"]) + 50;
 
+          testData.push({x: response['Time Series (Daily)'][element], y: curr});
           polyLineData.push(val, curr);
           val = val + 1.5;
 

@@ -12,32 +12,7 @@ let arr = [];
 let defArr = [];
 let curTeamArr = [];
 let teamArr = [];
-const dateArr = [
-    [
-        "2022-03-20",
-        "2022-03-27",
-        "2022-04-10",
-        "2022-04-24",
-        "2022-05-08",
-        "2022-05-22",
-        "2022-05-29",
-        "2022-06-12",
-        "2022-06-19",
-        "2022-07-03",
-        "2022-07-10",
-        "2022-07-24",
-        "2022-07-31",
-        "2022-08-28",
-        "2022-09-04",
-        "2022-09-11",
-        "2022-10-02",
-        "2022-10-09",
-        "2022-10-23",
-        "2022-10-30",
-        "2022-11-13",
-        "2022-11-20"
-    ]
-];
+
 
 const raceArr = ['<- Select an option ->', 'Bahrain', 'Saudi Arabia', 'Australia', 'Emilia Romagna', 'Miami', 'Spain', 'Monaco', 'Azerbaijan', 'Canada', 'Great Britain', 'Austria', 'France', 'Hungary', 'Belgium', 'Netherlands', 'Italy', 'Singapore', 'Japan', 'United States', 'Mexico', 'Brazil', 'Abu Dhabi']
 
@@ -63,7 +38,7 @@ function StockSearch() {
                 response => response.json()
             ).then((response) => {
                 teamArr.push('<-- Select a team -->')
-                for (const i in response) {
+                for (let i in response) {
                     arr.push(response[i]);
                     // gets array of teams for dropdown 
                     if (!teamArr.includes(response[i].teamName)) {
@@ -171,7 +146,7 @@ function StockSearch() {
     }
 
 
-     return (
+    return (
         <>
             <div>
                 <label>
