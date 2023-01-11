@@ -1,4 +1,4 @@
-# Tracking the stock price of F1 sponsors in a react web app.
+# Tracking the stock price of F1 sponsors.
 
 This website is a personal project used to display the stock price of F1 Sponsors. 
 
