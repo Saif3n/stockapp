@@ -1,3 +1,7 @@
+This website is a personal project used to display the stock price of F1 Sponsors. 
+
+The graph used to track the closing price was made using d3.js
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
