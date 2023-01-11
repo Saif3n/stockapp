@@ -1,31 +1,28 @@
-import React, { useRef, useEffect, useState } from 'react';
 import LoadingSpinner from './LoadingSpinner';
+import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
-const TestLineGraph = React.forwardRef((props, ref) => {
+const LineGraph = React.forwardRef((props, ref) => {
 
-    const [loadingFetch, setLoadingFetch] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [tickExist, setTickExist] = useState(false);
+
+    const firstRaceDate = new Date('2022-03-18');
+    const lastRaceDate = new Date('2022-11-22');
 
     const name = props.stockName;
-
-    // formatting for stock date
     const options = { month: 'short', day: '2-digit', year: 'numeric' }
 
-    // will reference this from function that calls it
     const border = "black";
     const hoverColor = "red";
     const path = "blue";
 
     const polyLineData = [];
     const svgRef = useRef();
+
     const width = 1000;
     const height = 600;
 
-    const dateParser = d3.timeParse("%Y-%m-%d");
-
-    // f1 race dates do not change, fine to hardcode
-    const firstRaceDate = new Date('2022-03-18');
-    const lastRaceDate = new Date('2022-11-22');
     const dateArr =
         [
             "2022-03-20",
@@ -53,53 +50,55 @@ const TestLineGraph = React.forwardRef((props, ref) => {
 
         ];
 
-        useEffect(() => {
-            setLoadingFetch(true)
-            async function fetchData(){
-                try {
-                    const response = await fetch(
-                    `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${name}&outputsize=full&apikey=${process.env.STOCK_API}`
-                    );
-                    const data = await response.json();
-                     
+
+    const dateParser = d3.timeParse("%Y-%m-%d");
+
+    useEffect(() => {
+        setIsLoading(true);
+
+        if (name.length > 0) {
+            console.log("wdaiuhdauiwhdw")
+            setTickExist(true)
+
+            fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${name}&outputsize=full&apikey=${process.env.STOCK_API}`)
+                .then(response => response.json())
+                .then(data => {
                     for (const element in data['Time Series (Daily)']) {
 
                         const dateOfElement = new Date(element);
-        
+
                         if (dateOfElement > firstRaceDate && dateOfElement <= lastRaceDate) {
                             const closePrice = parseFloat(data['Time Series (Daily)'][element]['4. close']);
                             polyLineData.push({ x: dateOfElement, y: closePrice });
                         }
                     }
-         
+
+
                     const margin = { top: 20, right: 20, bottom: 30, left: 50 };
-        
+
                     const dateObjectArr = dateArr.map(elem => dateParser(elem));
-           
+
                     const xScale = d3.scaleTime()
                         .domain(d3.extent(polyLineData, d => d.x))
                         .range([margin.left, width - margin.right]);
-        
+
                     const yScale = d3.scaleLinear()
                         .domain([d3.min(polyLineData, d => d.y), d3.max(polyLineData, d => d.y)])
                         .range([height - margin.bottom, margin.top]);
-        
+
                     const line = d3.line()
                         .x(d => xScale(d.x))
                         .y(d => yScale(d.y));
-        
-        
+
+
                     const svg = d3.select(svgRef.current);
-        
+
                     const yMin = yScale.domain()[0];
                     const yMax = yScale.domain()[1];
-        
+
                     const xMin = xScale.domain()[0];
                     const xMax = xScale.domain()[1];
-        
-        
-        
-        
+
                     svg.append('rect')
                         .attr('x', margin.left)
                         .attr('y', margin.top)
@@ -107,12 +106,12 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                         .attr('height', height - margin.top - margin.bottom)
                         .attr('stroke', `${border}`)
                         .attr('fill', 'lightgrey');
-        
+                    console.log(polyLineData)
                     svg.append('g')
                         .attr('transform', `translate(${margin.left}, 0)`)
                         .style('color', `${border}`)
                         .call(d3.axisLeft(yScale));
-        
+
                     svg.append('g')
                         .attr('transform', `translate(0, ${height - margin.bottom})`)
                         .style('color', `${border}`)
@@ -120,7 +119,7 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                         .call(d3.axisBottom(xScale)
                             .tickValues(dateObjectArr)
                             .tickFormat(d3.timeFormat('%m-%d')));
-        
+
                     svg.append('path')
                         .datum(polyLineData)
                         .attr('fill', 'none')
@@ -129,10 +128,10 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                         .attr('stroke-linecap', 'round')
                         .attr('stroke-width', 1.5)
                         .attr('d', line);
-        
+
                     const numTicks = 10;
                     const xTickValues = xScale.ticks(numTicks);
-        
+
                     svg.selectAll('.vertical-gridline')
                         .data(xTickValues)
                         .enter()
@@ -144,17 +143,18 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                         .attr('y2', yScale(yMax))
                         .attr('stroke', 'gray')
                         .attr('stroke-dasharray', '3,3');
-        
-        
-        
-        
+
+
+
+
+
                     polyLineData.forEach(point => {
                         svg.append('circle')
                             .attr('cx', xScale(point.x))
                             .attr('cy', yScale(point.y))
                             .attr('r', 2)
                             .attr('fill', `${path}`)
-        
+
                         svg.append('line')
                             .attr('x1', xScale(point.x))
                             .attr('y1', yScale(yMin))
@@ -165,10 +165,10 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                             .attr('stroke-opacity', 0)
                             .attr('class', 'existing-line')
                             .on('mouseover', (event) => {
-        
+
                                 const clientY = event.clientY;
                                 const svgRect = svg.node().getBoundingClientRect();
-        
+
                                 const y = clientY - svgRect.top;
                                 // yScale(point.y) - 20
                                 svg.append('text')
@@ -179,7 +179,8 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                                     .text(point.y)
                                     .attr('fill', `${hoverColor}`)
                                     .style('font-weight', 'bold');
-        
+
+
                                 // Append vertical line to SVG
                                 svg.append('line')
                                     .attr('x1', xScale(point.x))
@@ -190,7 +191,7 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                                     .attr('stroke-width', 2)
                                     .attr('stroke-dasharray', '3,3')
                                     .attr('class', 'mouseover-vert-line');
-        
+
                                 // Horizontal line SVG
                                 svg.append('line')
                                     .attr('x1', xScale(xMin))
@@ -201,7 +202,7 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                                     .attr('stroke-width', 2)
                                     .attr('stroke-dasharray', '3,3')
                                     .attr('class', 'mouseover-horiz-line');
-        
+
                                 svg.append('text')
                                     .attr('x', width - margin.right - 5)
                                     .attr('y', margin.top + 15)
@@ -218,30 +219,42 @@ const TestLineGraph = React.forwardRef((props, ref) => {
                                 svg.select('.mouseover-horiz-line').remove();
                                 svg.select('.top-right-text').remove();
                             });
-                        })
-                        console.log("ensure svg finished")
+                        // const textElements = svg.selectAll('text')
+                        // textElements.attr('style', 'filter: invert(1); font-weight: bold;')
+                        
 
-                }catch(e){
-                    console.log("errpr")
-                }
-                console.log("--------SET FALSE----")
-                console.log(polyLineData)
-            setLoadingFetch(false);
-            console.log("--------SET FALSE----")
+                    });
 
-        };
-        fetchData();
+
+                    setIsLoading(false);
+
+                })
+                .catch(error => {
+                    console.log(error);
+                    setIsLoading(false);
+                });
+        } else {
+            setIsLoading(false);
+            setTickExist(false);
+        }
 
     }, []);
+
+
     return (
         <>
-        
-            {loadingFetch ? <LoadingSpinner/> :<svg ref={svgRef} width={width} height={height} />}
+            {isLoading ? <LoadingSpinner /> : null}
+            {tickExist ? <svg ref={svgRef} width={width} height={height}></svg> : <div className="missing">This company does not appear to have public stock, or the API I'm using doesn't support it.</div>}
+
         </>
-    );
+    )
 
 
+    // return (
+    //     <div>
+    //         <svg ref={svgRef} width={width} height={height}></svg>
+    //         <p>hello</p>
+    //     </div>
+    // );
 });
-
-export default TestLineGraph;
-
+export default LineGraph;

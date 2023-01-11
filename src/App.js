@@ -1,6 +1,8 @@
 
 import './App.css';
 import StockSearch from './pages/StockSearch';
+import OverlayProgress from './pages/OverlayProgress';
+import Welcome from './pages/Welcome';
 
 
 
@@ -11,8 +13,9 @@ function App() {
   
   return (
     <div className="App">
-      <StockSearch></StockSearch>
-      
+      <OverlayProgress/>
+      <StockSearch/>
+      <Welcome/>
     </div>
   );
 }

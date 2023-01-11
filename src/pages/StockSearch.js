@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-import TestLineGraph from './TestLineGraph';
+import LineGraph from './LineGraph';
 
 let done = 0;
 
@@ -128,7 +128,7 @@ function StockSearch() {
         let drivers = [];
 
 
-        fetch("https://localhost:7024/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
+        fetch("https://personalbackendreact.azurewebsites.net/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
             response => response.json()
         ).then((response) => {
             for (const element in response) {
@@ -189,14 +189,14 @@ function StockSearch() {
                         </select>
 
                         <div>
-                            <li><strong>Race Date:</strong>{date}</li>
+                            <li><strong>Race Date: </strong>{date}</li>
                             {driver.map((driver, index) => (
                                 <li key={index}><strong>Driver:</strong> {driver.driver}  <strong>Race Position:</strong> {driver.racePosition}</li>
                             ))}
-                            <li>{stock}</li>
+ 
                         </div>
                         <div>
-                            {showGraph && <TestLineGraph stockName={stock} ref={lineGraphRef} />}
+                            {showGraph && <LineGraph stockName={stock} ref={lineGraphRef} />}
                         </div>
                     </div>
                 </div>
