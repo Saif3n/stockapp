@@ -9,3 +9,7 @@ This website is a personal project used to display the stock price of F1 Sponsor
 The graph used to track the closing price was made using d3.js, endpoints are built in C#.
 
 This is heavily work-in-progress; some sponsors are missing data from a stock API.
+
+-------
+
+Website viewable at https://saif3n.github.io/stockapp/ - note: C# functions may take a while to "warm up" and load.
