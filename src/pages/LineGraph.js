@@ -11,6 +11,7 @@ const LineGraph = React.forwardRef((props, ref) => {
     const lastRaceDate = new Date('2022-11-22');
 
     const name = props.stockName;
+    
     const options = { month: 'short', day: '2-digit', year: 'numeric' }
 
     const border = "black";
@@ -57,7 +58,7 @@ const LineGraph = React.forwardRef((props, ref) => {
         setIsLoading(true);
 
         if (name.length > 0) {
-            console.log("wdaiuhdauiwhdw")
+
             setTickExist(true)
 
             fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${name}&outputsize=full&apikey=${process.env.STOCK_API}`)
