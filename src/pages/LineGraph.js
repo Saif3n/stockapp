@@ -11,7 +11,7 @@ const LineGraph = React.forwardRef((props, ref) => {
     const lastRaceDate = new Date('2022-11-22');
 
     const name = props.stockName;
-    
+
     const options = { month: 'short', day: '2-digit', year: 'numeric' }
 
     const border = "black";
@@ -57,13 +57,18 @@ const LineGraph = React.forwardRef((props, ref) => {
     useEffect(() => {
         setIsLoading(true);
 
+        // do not call alphavantage if no ticker given
         if (name.length > 0) {
-
-            setTickExist(true)
-
+            setTickExist(true);
             fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${name}&outputsize=full&apikey=${process.env.STOCK_API}`)
                 .then(response => response.json())
                 .then(data => {
+                    // immediately stops execution and enters catch
+                    if (data.hasOwnProperty("Error Message")) {
+                        throw new Error(data["Error Message"]);
+                    }
+
+                    
                     for (const element in data['Time Series (Daily)']) {
 
                         const dateOfElement = new Date(element);
@@ -220,9 +225,8 @@ const LineGraph = React.forwardRef((props, ref) => {
                                 svg.select('.mouseover-horiz-line').remove();
                                 svg.select('.top-right-text').remove();
                             });
-                        // const textElements = svg.selectAll('text')
-                        // textElements.attr('style', 'filter: invert(1); font-weight: bold;')
-                        
+                            setTickExist(true)
+
 
                     });
 
@@ -233,10 +237,11 @@ const LineGraph = React.forwardRef((props, ref) => {
                 .catch(error => {
                     console.log(error);
                     setIsLoading(false);
+                    setTickExist(false);
                 });
         } else {
             setIsLoading(false);
-            setTickExist(false);
+
         }
 
     }, []);
@@ -251,11 +256,6 @@ const LineGraph = React.forwardRef((props, ref) => {
     )
 
 
-    // return (
-    //     <div>
-    //         <svg ref={svgRef} width={width} height={height}></svg>
-    //         <p>hello</p>
-    //     </div>
-    // );
+
 });
 export default LineGraph;

@@ -1,7 +1,4 @@
 import React, { useEffect, useState, useRef } from "react"
-// import Dropdown from 'react-bootstrap/Dropdown';
-// import DropdownButton from 'react-bootstrap/DropdownButton';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import LineGraph from './LineGraph';
@@ -26,14 +23,18 @@ function StockSearch() {
     const [sponsor, setSponsor] = useState('');
     const [stock, setStock] = useState('');
     const [date, setDate] = useState('');
+
     const [team, setTeam] = useState('');
     const [driver, setDriver] = useState([]);
+
     const [navOpen, setNavOpen] = useState(false);
     const [showGraph, setShowGraph] = useState(false);
+
     const lineGraphRef = useRef();
 
     useEffect(() => {
         if (done === 0) {
+            // personalbackendreact.azurewebsites.net
             fetch("https://localhost:7024/GetAllSponsors").then(
                 response => response.json()
             ).then((response) => {
@@ -58,7 +59,7 @@ function StockSearch() {
             setResult([]);
 
             let query = value.toLowerCase();
-
+            console.log(arr)
             for (const element in arr) {
                 let val = arr[element].sponsorName.toLowerCase();
                 if (val.slice(0, query.length).indexOf(query) !== -1) {
@@ -86,7 +87,7 @@ function StockSearch() {
 
         if (e.target.value === '<-- Select a team -->') {
             setResult(defArr);
-
+            arr = defArr;
         } else {
             arr = [];
             for (const element in defArr) {
@@ -128,7 +129,7 @@ function StockSearch() {
         let drivers = [];
 
 
-        fetch("https://localhost:7024/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
+        fetch("https://personalbackendreact.azurewebsites.net/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
             response => response.json()
         ).then((response) => {
             for (const element in response) {
