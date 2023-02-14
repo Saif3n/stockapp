@@ -34,7 +34,7 @@ function StockSearch() {
 
     useEffect(() => {
         if (done === 0) {
-            // personalbackendreact.azurewebsites.net
+  
             fetch("https://localhost:7024/GetAllSponsors").then(
                 response => response.json()
             ).then((response) => {
@@ -129,7 +129,7 @@ function StockSearch() {
         let drivers = [];
 
 
-        fetch("https://personalbackendreact.azurewebsites.net/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
+        fetch("https://localhost:7024/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
             response => response.json()
         ).then((response) => {
             for (const element in response) {
@@ -196,8 +196,10 @@ function StockSearch() {
                             ))}
  
                         </div>
-                        <div>
+                        <div className="stockgraph">
+                            <div className="svgcontainer">
                             {showGraph && <LineGraph stockName={stock} ref={lineGraphRef} />}
+                            </div>
                         </div>
                     </div>
                 </div>

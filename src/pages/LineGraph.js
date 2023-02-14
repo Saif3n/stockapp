@@ -63,12 +63,12 @@ const LineGraph = React.forwardRef((props, ref) => {
             fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${name}&outputsize=full&apikey=${process.env.STOCK_API}`)
                 .then(response => response.json())
                 .then(data => {
-                    // immediately stops execution and enters catch
+
                     if (data.hasOwnProperty("Error Message")) {
                         throw new Error(data["Error Message"]);
                     }
 
-                    
+
                     for (const element in data['Time Series (Daily)']) {
 
                         const dateOfElement = new Date(element);
@@ -104,6 +104,13 @@ const LineGraph = React.forwardRef((props, ref) => {
 
                     const xMin = xScale.domain()[0];
                     const xMax = xScale.domain()[1];
+
+                    const lastDataPoint = data[data.length - 1];
+                    const lastDataPointX = xScale(lastDataPoint.x);
+                    // const maxheight
+
+                    d3.select("svg")
+                        .attr("viewBox", "0 0 1000 1000")
 
                     svg.append('rect')
                         .attr('x', margin.left)
@@ -225,7 +232,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                                 svg.select('.mouseover-horiz-line').remove();
                                 svg.select('.top-right-text').remove();
                             });
-                            setTickExist(true)
+                        setTickExist(true)
 
 
                     });
