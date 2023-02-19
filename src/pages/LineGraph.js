@@ -161,77 +161,89 @@ const LineGraph = React.forwardRef((props, ref) => {
 
 
 
-                    polyLineData.forEach(point => {
-                        svg.append('circle')
-                            .attr('cx', xScale(point.x))
-                            .attr('cy', yScale(point.y))
-                            .attr('r', 2)
-                            .attr('fill', `${path}`)
-
-                        svg.append('line')
-                            .attr('x1', xScale(point.x))
-                            .attr('y1', yScale(yMin))
-                            .attr('x2', xScale(point.x))
-                            .attr('y2', yScale(yMax))
-                            .attr('stroke', 'white')
-                            .attr('stroke-width', 5)
-                            .attr('stroke-opacity', 0)
-                            .attr('class', 'existing-line')
-                            .on('mouseover', (event) => {
-
-                                const clientY = event.clientY;
-                                const svgRect = svg.node().getBoundingClientRect();
-
-                                const y = clientY - svgRect.top;
-                                // yScale(point.y) - 20
-                                svg.append('text')
-                                    .attr('x', xScale(point.x))
-                                    .attr('y', y)
-                                    .attr('text-anchor', 'middle')
-                                    .attr('class', 'mouseover-text')
-                                    .text(point.y)
-                                    .attr('fill', `${hoverColor}`)
-                                    .style('font-weight', 'bold');
-
-
-                                // Append vertical line to SVG
-                                svg.append('line')
-                                    .attr('x1', xScale(point.x))
-                                    .attr('y1', yScale(yMin))
-                                    .attr('x2', xScale(point.x))
-                                    .attr('y2', yScale(yMax))
-                                    .attr('stroke', `${hoverColor}`)
-                                    .attr('stroke-width', 2)
-                                    .attr('stroke-dasharray', '3,3')
-                                    .attr('class', 'mouseover-vert-line');
-
-                                // Horizontal line SVG
-                                svg.append('line')
-                                    .attr('x1', xScale(xMin))
-                                    .attr('y1', yScale(point.y))
-                                    .attr('x2', xScale(xMax))
-                                    .attr('y2', yScale(point.y))
-                                    .attr('stroke', `${hoverColor}`)
-                                    .attr('stroke-width', 2)
-                                    .attr('stroke-dasharray', '3,3')
-                                    .attr('class', 'mouseover-horiz-line');
-
-                                svg.append('text')
-                                    .attr('x', width - margin.right - 5)
-                                    .attr('y', margin.top + 15)
-                                    .attr('text-anchor', 'end')
-                                    .attr('font-weight', 'bold')
-                                    .attr('class', 'top-right-text')
-                                    .text(point.x.toLocaleDateString("en-US", options))
-                                    .attr('fill', 'black')
-                                    .style('font-size', '14px');
-                            })
-                            .on('mouseout', () => {
-                                svg.select('.mouseover-text').remove();
-                                svg.select('.mouseover-vert-line').remove();
-                                svg.select('.mouseover-horiz-line').remove();
-                                svg.select('.top-right-text').remove();
-                            });
+                        polyLineData.forEach(point => {
+                            svg.append('circle')
+                                .attr('cx', xScale(point.x))
+                                .attr('cy', yScale(point.y))
+                                .attr('r', 2)
+                                .attr('fill', `${path}`)
+                        
+                            svg.append('line')
+                                .attr('x1', xScale(point.x))
+                                .attr('y1', yScale(yMin))
+                                .attr('x2', xScale(point.x))
+                                .attr('y2', yScale(yMax))
+                                .attr('stroke', 'white')
+                                .attr('stroke-width', 5)
+                                .attr('stroke-opacity', 0)
+                                .attr('class', 'existing-line')
+                                .on('mouseover', (event) => {
+                                    console.log("firing mouse")
+                                    const clientY = event.clientY;
+                                    const svgRect = svg.node().getBoundingClientRect();
+                        
+                                    const y = clientY - svgRect.top;
+                                    // yScale(point.y) - 20
+                                    svg.append('text')
+                                        .attr('x', xScale(point.x))
+                                        .attr('y', y)
+                                        .attr('text-anchor', 'middle')
+                                        .attr('class', 'mouseover-text')
+                                        .text(point.y)
+                                        .attr('fill', `${hoverColor}`)
+                                        .style('font-weight', 'bold');
+                        
+                        
+                                    // Append vertical line to SVG
+                                    svg.append('line')
+                                        .attr('x1', xScale(point.x))
+                                        .attr('y1', yScale(yMin))
+                                        .attr('x2', xScale(point.x))
+                                        .attr('y2', yScale(yMax))
+                                        .attr('stroke', `${hoverColor}`)
+                                        .attr('stroke-width', 2)
+                                        .attr('stroke-dasharray', '3,3')
+                                        .attr('class', 'mouseover-vert-line');
+                        
+                                    // Horizontal line SVG
+                                    svg.append('line')
+                                        .attr('x1', xScale(xMin))
+                                        .attr('y1', yScale(point.y))
+                                        .attr('x2', xScale(xMax))
+                                        .attr('y2', yScale(point.y))
+                                        .attr('stroke', `${hoverColor}`)
+                                        .attr('stroke-width', 2)
+                                        .attr('stroke-dasharray', '3,3')
+                                        .attr('class', 'mouseover-horiz-line');
+                        
+                                    svg.append('text')
+                                        .attr('x', width - margin.right - 5)
+                                        .attr('y', margin.top + 15)
+                                        .attr('text-anchor', 'end')
+                                        .attr('font-weight', 'bold')
+                                        .attr('class', 'top-right-text')
+                                        .text(point.x.toLocaleDateString("en-US", options))
+                                        .attr('fill', 'black')
+                                        .style('font-size', '14px');
+                                })
+                                .on('mouseout', () => {
+                                    svg.select('.mouseover-text').remove();
+                                    svg.select('.mouseover-vert-line').remove();
+                                    svg.select('.mouseover-horiz-line').remove();
+                                    svg.select('.top-right-text').remove();
+                                })
+                                .on('pointerdown', (event) => {
+                                    console.log("firing pointer")
+                                    event.preventDefault();
+                                    const mouseEvent = new MouseEvent('mouseover', {clientX: event.clientX, clientY: event.clientY});
+                                    event.target.dispatchEvent(mouseEvent);
+                                })
+                                .on('pointerup', (event) => {
+                                    event.preventDefault();
+                                    const mouseEvent = new MouseEvent('mouseout', {clientX: event.clientX, clientY: event.clientY});
+                                    event.target.dispatchEvent(mouseEvent);
+                        
+                        });
                         setTickExist(true)
 
 

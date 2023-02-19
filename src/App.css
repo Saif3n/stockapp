@@ -210,7 +210,7 @@ li {
   background-color: rgba(201, 213, 241, 0.947);
   z-index: 1;
   font-weight:bold;
-  overflow:visible;
+  overflow:scroll;
 
 }
 .overlaycontent{
@@ -218,6 +218,7 @@ li {
   width:40%;
   margin-left:auto;
   margin-right:auto;
+  overflow:scroll;
 }
 .close-button{
   display:block;
