@@ -9,7 +9,7 @@ const OverlayProgress = React.forwardRef((props, ref) => {
     useEffect(() => {
         setIsLoading(true);
 
-            fetch(`https://localhost:7024/WakeUp`)
+            fetch(`https://personalbackendreact.azurewebsites.net/WakeUp`)
                 .then(response => response.json())
                 .then(data => {
                     setIsLoading(false);

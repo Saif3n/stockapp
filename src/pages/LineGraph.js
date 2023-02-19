@@ -78,7 +78,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                             polyLineData.push({ x: dateOfElement, y: closePrice });
                         }
                     }
-
+                    console.log(polyLineData)
 
                     const margin = { top: 20, right: 20, bottom: 30, left: 50 };
 
@@ -105,12 +105,12 @@ const LineGraph = React.forwardRef((props, ref) => {
                     const xMin = xScale.domain()[0];
                     const xMax = xScale.domain()[1];
 
-                    const lastDataPoint = data[data.length - 1];
-                    const lastDataPointX = xScale(lastDataPoint.x);
+                    // const lastDataPoint = data[data.length - 1];
+                    // const lastDataPointX = xScale(lastDataPoint.x);
                     // const maxheight
 
                     d3.select("svg")
-                        .attr("viewBox", "0 0 1000 1000")
+                        .attr("viewBox", "85 0 870 870")
 
                     svg.append('rect')
                         .attr('x', margin.left)
