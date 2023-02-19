@@ -119,7 +119,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                         .attr('height', height - margin.top - margin.bottom)
                         .attr('stroke', `${border}`)
                         .attr('fill', 'lightgrey');
-                    console.log(polyLineData)
+              
                     svg.append('g')
                         .attr('transform', `translate(${margin.left}, 0)`)
                         .style('color', `${border}`)
@@ -178,7 +178,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                                 .attr('stroke-opacity', 0)
                                 .attr('class', 'existing-line')
                                 .on('mouseover', (event) => {
-                                    console.log("firing mouse")
+                  
                                     const clientY = event.clientY;
                                     const svgRect = svg.node().getBoundingClientRect();
                         
@@ -233,7 +233,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                                     svg.select('.top-right-text').remove();
                                 })
                                 .on('pointerdown', (event) => {
-                                    console.log("firing pointer")
+                
                                     event.preventDefault();
                                     const mouseEvent = new MouseEvent('mouseover', {clientX: event.clientX, clientY: event.clientY});
                                     event.target.dispatchEvent(mouseEvent);
@@ -245,27 +245,65 @@ const LineGraph = React.forwardRef((props, ref) => {
                         
                         });
                         setTickExist(true)
-
+                        
 
                     });
 
 
                     setIsLoading(false);
-
+                    getNeighbouringObjects("2022-06-25",polyLineData)
                 })
                 .catch(error => {
                     console.log(error);
                     setIsLoading(false);
                     setTickExist(false);
                 });
+                
         } else {
             setIsLoading(false);
 
         }
-
+  
     }, []);
-
-
+    
+    function getNeighbouringObjects(inputDate, data) {
+        const inputDateObj = new Date(inputDate);
+        const results = [];
+        let prevObj, nextObj;
+        
+        for (let i = data.length-1; i >=0; i--) {
+          const currentObj = data[i];
+          const currentDate = new Date(currentObj.x);
+          if (currentDate.getTime() === inputDateObj.getTime()) {
+            if (i > 0) {
+              prevObj = data[i - 1];
+              results.push(prevObj);
+            }
+            if (i < data.length - 1) {
+              nextObj = data[i + 1];
+              results.push(nextObj);
+            }
+            break;
+          } else if (currentDate > inputDateObj) {
+            nextObj = currentObj;
+            if (i > 0) {
+              prevObj = data[i + 1];
+            } else {
+              prevObj = data[0];
+            }
+            results.push(prevObj, nextObj);
+            break;
+          }
+        }
+        if (results.length === 0) {
+          // Input date is after the last date in data
+          results.push(data[data.length - 2], data[data.length - 1]);
+        }
+        console.log(results)
+        return results;
+      }
+      
+ 
     return (
         <>
             {isLoading ? <LoadingSpinner /> : null}

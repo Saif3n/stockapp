@@ -34,8 +34,8 @@ function StockSearch() {
 
     useEffect(() => {
         if (done === 0) {
-  
-            fetch("https://personalbackendreact.azurewebsites.net/GetAllSponsors").then(
+            //personalbackendreact.azurewebsites.net
+            fetch("https://localhost:7024/GetAllSponsors").then(
                 response => response.json()
             ).then((response) => {
                 teamArr.push('<-- Select a team -->')
@@ -129,7 +129,7 @@ function StockSearch() {
         let drivers = [];
 
 
-        fetch("https://personalbackendreact.azurewebsites.net/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
+        fetch("https://localhost:7024/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
             response => response.json()
         ).then((response) => {
             for (const element in response) {
