@@ -16,6 +16,7 @@ const LineGraph = React.forwardRef((props, ref) => {
 
     const border = "black";
     const hoverColor = "red";
+    const raceColor = "green"
     const path = "blue";
 
     const polyLineData = [];
@@ -105,10 +106,6 @@ const LineGraph = React.forwardRef((props, ref) => {
                     const xMin = xScale.domain()[0];
                     const xMax = xScale.domain()[1];
 
-                    // const lastDataPoint = data[data.length - 1];
-                    // const lastDataPointX = xScale(lastDataPoint.x);
-                    // const maxheight
-
                     d3.select("svg")
                         .attr("viewBox", "85 0 870 870")
 
@@ -123,7 +120,8 @@ const LineGraph = React.forwardRef((props, ref) => {
                     svg.append('g')
                         .attr('transform', `translate(${margin.left}, 0)`)
                         .style('color', `${border}`)
-                        .call(d3.axisLeft(yScale));
+                        .call(d3.axisLeft(yScale))
+                        .style('user-select', 'none');
 
                     svg.append('g')
                         .attr('transform', `translate(0, ${height - margin.bottom})`)
@@ -131,7 +129,8 @@ const LineGraph = React.forwardRef((props, ref) => {
                         .style('font-size', 8)
                         .call(d3.axisBottom(xScale)
                             .tickValues(dateObjectArr)
-                            .tickFormat(d3.timeFormat('%m-%d')));
+                            .tickFormat(d3.timeFormat('%m-%d')))
+                            .style('user-select', 'none');
 
                     svg.append('path')
                         .datum(polyLineData)
@@ -190,7 +189,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                                         .attr('text-anchor', 'middle')
                                         .attr('class', 'mouseover-text')
                                         .text(point.y)
-                                        .attr('fill', `${hoverColor}`)
+                                        .attr('fill', `${path}`)
                                         .style('font-weight', 'bold');
                         
                         
@@ -232,18 +231,6 @@ const LineGraph = React.forwardRef((props, ref) => {
                                     svg.select('.mouseover-horiz-line').remove();
                                     svg.select('.top-right-text').remove();
                                 })
-                                .on('pointerdown', (event) => {
-                
-                                    event.preventDefault();
-                                    const mouseEvent = new MouseEvent('mouseover', {clientX: event.clientX, clientY: event.clientY});
-                                    event.target.dispatchEvent(mouseEvent);
-                                })
-                                .on('pointerup', (event) => {
-                                    event.preventDefault();
-                                    const mouseEvent = new MouseEvent('mouseout', {clientX: event.clientX, clientY: event.clientY});
-                                    event.target.dispatchEvent(mouseEvent);
-                        
-                        });
                         setTickExist(true)
                         
 
@@ -251,7 +238,7 @@ const LineGraph = React.forwardRef((props, ref) => {
 
 
                     setIsLoading(false);
-                    getNeighbouringObjects("2022-06-25",polyLineData, svg, xScale, yScale, yMin, yMax);
+                    // appendAdditionalElements("2022-06-25",polyLineData, svg, xScale, yScale, yMin, yMax);
                 })
                 .catch(error => {
                     console.log(error);
@@ -266,7 +253,10 @@ const LineGraph = React.forwardRef((props, ref) => {
   
     }, []);
     
-    function getNeighbouringObjects(inputDate, data, svg, xScale, yScale, yMin, yMax) {
+    function appendAdditionalElements(inputDate, data, svg, xScale, yScale, yMin, yMax) {
+        
+        svg.select('.race-line').remove();
+
         const inputDateObj = new Date(inputDate);
         const results = [];
         let prevObj, nextObj;
@@ -296,21 +286,18 @@ const LineGraph = React.forwardRef((props, ref) => {
           }
         }
         if (results.length === 0) {
-          // Input date is after the last date in data
           results.push(data[data.length - 2], data[data.length - 1]);
         }
-        console.log(results)
-        console.log(yMin)
+
         results.forEach((point) => {
             svg.append('line')
                .attr('x1', xScale(point.x))
                .attr('y1', yScale(yMin))
                .attr('x2', xScale(point.x))
                .attr('y2', yScale(yMax))
-               .attr('stroke', `${hoverColor}`)
+               .attr('stroke', `${raceColor}`)
                .attr('stroke-width', 2)
-               .attr('stroke-dasharray', '3,3')
-               .attr('class', 'mouseover-vert-line');
+               .attr('class', 'race-line');
           });
       }
       
