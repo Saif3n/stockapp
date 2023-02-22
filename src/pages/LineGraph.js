@@ -251,7 +251,7 @@ const LineGraph = React.forwardRef((props, ref) => {
 
 
                     setIsLoading(false);
-                    getNeighbouringObjects("2022-06-25",polyLineData)
+                    getNeighbouringObjects("2022-06-25",polyLineData, svg, xScale, yScale, yMin, yMax);
                 })
                 .catch(error => {
                     console.log(error);
@@ -266,7 +266,7 @@ const LineGraph = React.forwardRef((props, ref) => {
   
     }, []);
     
-    function getNeighbouringObjects(inputDate, data) {
+    function getNeighbouringObjects(inputDate, data, svg, xScale, yScale, yMin, yMax) {
         const inputDateObj = new Date(inputDate);
         const results = [];
         let prevObj, nextObj;
@@ -300,7 +300,18 @@ const LineGraph = React.forwardRef((props, ref) => {
           results.push(data[data.length - 2], data[data.length - 1]);
         }
         console.log(results)
-        return results;
+        console.log(yMin)
+        results.forEach((point) => {
+            svg.append('line')
+               .attr('x1', xScale(point.x))
+               .attr('y1', yScale(yMin))
+               .attr('x2', xScale(point.x))
+               .attr('y2', yScale(yMax))
+               .attr('stroke', `${hoverColor}`)
+               .attr('stroke-width', 2)
+               .attr('stroke-dasharray', '3,3')
+               .attr('class', 'mouseover-vert-line');
+          });
       }
       
  
