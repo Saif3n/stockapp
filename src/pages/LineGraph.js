@@ -7,8 +7,8 @@ const LineGraph = React.forwardRef((props, ref) => {
     const [isLoading, setIsLoading] = useState(false);
     const [tickExist, setTickExist] = useState(false);
 
-    const firstRaceDate = new Date('2022-03-18');
-    const lastRaceDate = new Date('2022-11-22');
+    const firstRaceDate = new Date('2022-03-09');
+    const lastRaceDate = new Date('2022-12-10');
 
     const name = props.stockName;
 
@@ -55,9 +55,12 @@ const LineGraph = React.forwardRef((props, ref) => {
 
     const dateParser = d3.timeParse("%Y-%m-%d");
 
+
     useEffect(() => {
         setIsLoading(true);
 
+       
+        
         // do not call alphavantage if no ticker given
         if (name.length > 0) {
             setTickExist(true);
@@ -238,7 +241,8 @@ const LineGraph = React.forwardRef((props, ref) => {
 
 
                     setIsLoading(false);
-                    // appendAdditionalElements("2022-06-25",polyLineData, svg, xScale, yScale, yMin, yMax);
+                    props.onTargetVal(polyLineData, svg, xScale, yScale, yMin, yMax);
+
                 })
                 .catch(error => {
                     console.log(error);
@@ -253,59 +257,12 @@ const LineGraph = React.forwardRef((props, ref) => {
   
     }, []);
     
-    function appendAdditionalElements(inputDate, data, svg, xScale, yScale, yMin, yMax) {
-        
-        svg.select('.race-line').remove();
-
-        const inputDateObj = new Date(inputDate);
-        const results = [];
-        let prevObj, nextObj;
-        
-        for (let i = data.length-1; i >=0; i--) {
-          const currentObj = data[i];
-          const currentDate = new Date(currentObj.x);
-          if (currentDate.getTime() === inputDateObj.getTime()) {
-            if (i > 0) {
-              prevObj = data[i - 1];
-              results.push(prevObj);
-            }
-            if (i < data.length - 1) {
-              nextObj = data[i + 1];
-              results.push(nextObj);
-            }
-            break;
-          } else if (currentDate > inputDateObj) {
-            nextObj = currentObj;
-            if (i > 0) {
-              prevObj = data[i + 1];
-            } else {
-              prevObj = data[0];
-            }
-            results.push(prevObj, nextObj);
-            break;
-          }
-        }
-        if (results.length === 0) {
-          results.push(data[data.length - 2], data[data.length - 1]);
-        }
-
-        results.forEach((point) => {
-            svg.append('line')
-               .attr('x1', xScale(point.x))
-               .attr('y1', yScale(yMin))
-               .attr('x2', xScale(point.x))
-               .attr('y2', yScale(yMax))
-               .attr('stroke', `${raceColor}`)
-               .attr('stroke-width', 2)
-               .attr('class', 'race-line');
-          });
-      }
-      
+    
  
     return (
         <>
             {isLoading ? <LoadingSpinner /> : null}
-            {tickExist ? <svg ref={svgRef} width={width} height={height}></svg> : <div className="missing">This company does not appear to have public stock, or the API I'm using doesn't support it.</div>}
+            {tickExist ? <svg ref={svgRef} width={width} height={height} targetvalue = {100}></svg> : <div className="missing">This company does not appear to have public stock, or the API I'm using doesn't support it.</div>}
 
         </>
     )
@@ -313,4 +270,57 @@ const LineGraph = React.forwardRef((props, ref) => {
 
 
 });
+
+export function appendAdditionalElements(inputDate, data, svg, xScale, yScale, yMin, yMax) {
+
+    svg.selectAll('.race-line').remove();
+
+    if (inputDate === "1"){
+        return;
+    }
+    const inputDateObj = new Date(inputDate);
+    const results = [];
+    let prevObj, nextObj;
+    
+    for (let i = data.length-1; i >=0; i--) {
+      const currentObj = data[i];
+      const currentDate = new Date(currentObj.x);
+      if (currentDate.getTime() === inputDateObj.getTime()) {
+        if (i > 0) {
+          prevObj = data[i - 1];
+          results.push(prevObj);
+        }
+        if (i < data.length - 1) {
+          nextObj = data[i + 1];
+          results.push(nextObj);
+        }
+        break;
+      } else if (currentDate > inputDateObj) {
+        nextObj = currentObj;
+        if (i > 0) {
+          prevObj = data[i + 1];
+        } else {
+          prevObj = data[0];
+        }
+        results.push(prevObj, nextObj);
+        break;
+      }
+    }
+    if (results.length === 0) {
+      results.push(data[data.length - 2], data[data.length - 1]);
+    }
+
+    results.forEach((point) => {
+        svg.append('line')
+           .attr('x1', xScale(point.x))
+           .attr('y1', yScale(yMin))
+           .attr('x2', xScale(point.x))
+           .attr('y2', yScale(yMax))
+           .attr('stroke', 'green')
+           .attr('stroke-width', 2)
+           .attr('class', 'race-line');
+      });
+  }
+  
+
 export default LineGraph;

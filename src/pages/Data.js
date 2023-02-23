@@ -1,0 +1,26 @@
+export const raceArr = {
+    '<- Select an option ->': "1",
+    'Bahrain': '2022-03-20',
+    'Saudi Arabia': '2022-03-27',
+    'Australia': '2022-04-10',
+    'Emilia Romagna': '2022-04-24',
+    'Miami': '2022-05-08',
+    'Spain': '2022-05-22',
+    'Monaco': '2022-05-29',
+    'Azerbaijan': '2022-06-12',
+    'Canada': '2022-06-19',
+    'Great Britain': '2022-07-03',
+    'Austria': '2022-07-10',
+    'France': '2022-07-24',
+    'Hungary': '2022-07-31',
+    'Belgium': '2022-08-28',
+    'Netherlands': '2022-09-04',
+    'Italy': '2022-09-11',
+    'Singapore': '2022-10-02',
+    'Japan': '2022-10-09',
+    'United States': '2022-10-23',
+    'Mexico': '2022-10-30',
+    'Brazil': '2022-11-13',
+    'Abu Dhabi': '2022-11-20'
+
+}
