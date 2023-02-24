@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import LineGraph from './LineGraph';
 import { appendAdditionalElements } from './LineGraph';
 import { raceArr } from './Data';
-
+import Typewriter from 'typewriter-effect';
 
 let arr = [];
 let defArr = [];
@@ -11,6 +11,7 @@ let teamArr = [];
 
 let svgObj = {};
 
+const fuck = "wdda"
 
 
 function StockSearch() {
@@ -22,7 +23,7 @@ function StockSearch() {
     const [stock, setStock] = useState('');
 
     const [team, setTeam] = useState('');
-    const [driver, setDriver] = useState([]);
+    const [driver, setDriver] = useState('');
 
     const [navOpen, setNavOpen] = useState(false);
     const [showGraph, setShowGraph] = useState(false);
@@ -32,7 +33,7 @@ function StockSearch() {
     useEffect(() => {
 
         //personalbackendreact.azurewebsites.net
-        fetch("https://personalbackendreact.azurewebsites.net/GetAllSponsors").then(
+        fetch("https://localhost:7024/GetAllSponsors").then(
             response => response.json()
         ).then((response) => {
             teamArr.push('<-- Select a team -->')
@@ -56,7 +57,7 @@ function StockSearch() {
             setResult([]);
 
             let query = value.toLowerCase();
-            console.log(arr)
+
             for (const element in arr) {
                 let val = arr[element].sponsorName.toLowerCase();
                 if (val.slice(0, query.length).indexOf(query) !== -1) {
@@ -124,25 +125,22 @@ function StockSearch() {
 
         appendAdditionalElements(raceArr[e.target.value], svgObj.polyLineData, svgObj.svg, svgObj.xScale, svgObj.yScale, svgObj.yMin, svgObj.yMax);
 
-        fetch("https://personalbackendreact.azurewebsites.net/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
+        fetch("https://localhost:7024/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
             response => response.json()
         ).then((response) => {
             for (const element in response) {
-
                 drivers.push(response[element])
-                setDriver(prevResult => {
-                    return [...prevResult, drivers[element]]
-                });
             }
 
+            setDriver(drivers[0].driver + ' and ' + drivers[1].driver + ' finished in positions ' + drivers[0].racePosition + ' and ' + drivers[1].racePosition + ' respectively.')
         });
 
 
     }
 
     const handleTargetVal = (polyLineData, svg, xScale, yScale, yMin, yMax) => {
-        svgObj = {polyLineData, svg, xScale, yScale, yMin, yMax}
-        console.log(svgObj);
+        svgObj = { polyLineData, svg, xScale, yScale, yMin, yMax }
+
     };
 
 
@@ -187,13 +185,19 @@ function StockSearch() {
                             ))}
                         </select>
 
-                        <div>
-                            <li></li>
-                            {driver.map((driver, index) => (
-                                <li key={index}><strong>Driver:</strong> {driver.driver}  <strong>Race Position:</strong> {driver.racePosition}</li>
-                            ))}
-
+                        <div className="drivers">
+                
+                        {console.log(typeof driver)}
+                            {console.log(driver)}
+                            {console.log(driver.toString())}
+                            {driver &&
+                                <Typewriter
+                                    onInit={(typewriter) => {
+                                        typewriter.changeDelay(40).typeString(driver.toString()).start();
+                                    }}
+                                />}
                         </div>
+
                         <div className="stockgraph">
                             <div className="svgcontainer">
                                 {showGraph && <LineGraph stockName={stock} ref={lineGraphRef} onTargetVal={handleTargetVal} />}

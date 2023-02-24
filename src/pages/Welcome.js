@@ -8,7 +8,7 @@ function Analytics() {
 
 
     const getData = async () => {
-        console.log(window.location.href)
+
         if (window.location.href !== "http://localhost:3000/stockapp") {
             const res = await axios.get('https://geolocation-db.com/json/')
             ip = res.data.IPv4;

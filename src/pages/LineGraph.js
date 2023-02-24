@@ -82,7 +82,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                             polyLineData.push({ x: dateOfElement, y: closePrice });
                         }
                     }
-                    console.log(polyLineData)
+
 
                     const margin = { top: 20, right: 20, bottom: 30, left: 50 };
 
