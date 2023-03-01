@@ -309,7 +309,7 @@ export function appendAdditionalElements(inputDate, data, svg, xScale, yScale, y
     if (results.length === 0) {
       results.push(data[data.length - 2], data[data.length - 1]);
     }
-
+    console.log(results)
     results.forEach((point) => {
         svg.append('line')
            .attr('x1', xScale(point.x))

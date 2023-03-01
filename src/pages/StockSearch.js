@@ -187,15 +187,7 @@ function StockSearch() {
 
                         <div className="drivers">
                 
-                        {console.log(typeof driver)}
-                            {console.log(driver)}
-                            {console.log(driver.toString())}
-                            {driver &&
-                                <Typewriter
-                                    onInit={(typewriter) => {
-                                        typewriter.changeDelay(40).typeString(driver.toString()).start();
-                                    }}
-                                />}
+                            <li>{driver}</li>
                         </div>
 
                         <div className="stockgraph">
