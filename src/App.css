@@ -78,8 +78,18 @@ li {
 .opSelect {
   font-weight: bold;
 }
+li{
 
-
+  font-size:2vh;
+}
+.href{
+  color:white;
+}
+select{
+  border:2px white solid;
+  background-color: #111111;
+  color:white;
+}
 /*-----------------*/
 #overlay {
   height: 0%;
@@ -88,7 +98,7 @@ li {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgb(46, 43, 43);
   overflow: scroll;
   transition: 0.5s;
 }

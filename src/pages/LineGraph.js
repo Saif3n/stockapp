@@ -14,10 +14,10 @@ const LineGraph = React.forwardRef((props, ref) => {
 
     const options = { month: 'short', day: '2-digit', year: 'numeric' }
 
-    const border = "black";
+    const border = "white";
     const hoverColor = "red";
     const raceColor = "green"
-    const path = "blue";
+    const path = "green";
 
     const polyLineData = [];
     const svgRef = useRef();
@@ -103,6 +103,13 @@ const LineGraph = React.forwardRef((props, ref) => {
 
                     const svg = d3.select(svgRef.current);
 
+                    //-------------
+                    
+                    
+
+
+
+                    //----------
                     const yMin = yScale.domain()[0];
                     const yMax = yScale.domain()[1];
 
@@ -118,22 +125,23 @@ const LineGraph = React.forwardRef((props, ref) => {
                         .attr('width', width - margin.left - margin.right)
                         .attr('height', height - margin.top - margin.bottom)
                         .attr('stroke', `${border}`)
-                        .attr('fill', 'lightgrey');
+                        .attr('fill', '#292828');
               
                     svg.append('g')
                         .attr('transform', `translate(${margin.left}, 0)`)
                         .style('color', `${border}`)
                         .call(d3.axisLeft(yScale))
-                        .style('user-select', 'none');
+                        .style('user-select', 'none').selectAll('.domain, .tick line')
+                        .remove();
 
-                    svg.append('g')
-                        .attr('transform', `translate(0, ${height - margin.bottom})`)
-                        .style('color', `${border}`)
-                        .style('font-size', 8)
-                        .call(d3.axisBottom(xScale)
-                            .tickValues(dateObjectArr)
-                            .tickFormat(d3.timeFormat('%m-%d')))
-                            .style('user-select', 'none');
+                    // svg.append('g')
+                    //     .attr('transform', `translate(0, ${height - margin.bottom})`)
+                    //     .style('color', `${border}`)
+                    //     .style('font-size', 8)
+                    //     .call(d3.axisBottom(xScale)
+                    //         .tickValues(dateObjectArr)
+                    //         .tickFormat(d3.timeFormat('%m-%d')))
+                    //         .style('user-select', 'none');
 
                     svg.append('path')
                         .datum(polyLineData)
@@ -156,8 +164,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                         .attr('y1', yScale(yMin))
                         .attr('x2', d => xScale(d))
                         .attr('y2', yScale(yMax))
-                        .attr('stroke', 'gray')
-                        .attr('stroke-dasharray', '3,3');
+                        .attr('stroke', 'gray');
 
 
 
@@ -192,7 +199,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                                         .attr('text-anchor', 'middle')
                                         .attr('class', 'mouseover-text')
                                         .text(point.y)
-                                        .attr('fill', `${path}`)
+                                        .attr('fill', `white`)
                                         .style('font-weight', 'bold');
                         
                         
@@ -225,7 +232,7 @@ const LineGraph = React.forwardRef((props, ref) => {
                                         .attr('font-weight', 'bold')
                                         .attr('class', 'top-right-text')
                                         .text(point.x.toLocaleDateString("en-US", options))
-                                        .attr('fill', 'black')
+                                        .attr('fill', 'white')
                                         .style('font-size', '14px');
                                 })
                                 .on('mouseout', () => {
@@ -316,7 +323,7 @@ export function appendAdditionalElements(inputDate, data, svg, xScale, yScale, y
            .attr('y1', yScale(yMin))
            .attr('x2', xScale(point.x))
            .attr('y2', yScale(yMax))
-           .attr('stroke', 'green')
+           .attr('stroke', 'light-blue')
            .attr('stroke-width', 2)
            .attr('class', 'race-line');
       });

@@ -11,7 +11,6 @@ let teamArr = [];
 
 let svgObj = {};
 
-const fuck = "wdda"
 
 
 function StockSearch() {
@@ -32,7 +31,7 @@ function StockSearch() {
 
     useEffect(() => {
 
-        //personalbackendreact.azurewebsites.net
+        //localhost:7024
         fetch("https://localhost:7024/GetAllSponsors").then(
             response => response.json()
         ).then((response) => {
@@ -132,7 +131,7 @@ function StockSearch() {
                 drivers.push(response[element])
             }
 
-            setDriver(drivers[0].driver + ' and ' + drivers[1].driver + ' finished in positions ' + drivers[0].racePosition + ' and ' + drivers[1].racePosition + ' respectively.')
+            setDriver(drivers[0].driver + ' and ' + drivers[1].driver + ' finished in positions ' + drivers[0].racePosition + ' and ' + drivers[1].racePosition + '.')
         });
 
 
@@ -175,26 +174,26 @@ function StockSearch() {
             </div>
 
             <>
-                <div className={'o' + team} id="overlay" style={{ height: navOpen ? 100 + '%' : 0 + '%' }} onLoad={() => handleDropdownDrivers('Bahrain')}>
+                <div id="overlay" style={{ height: navOpen ? 100 + '%' : 0 + '%' }} onLoad={() => handleDropdownDrivers('Bahrain')}>
                     <h1 className="closebtn" onClick={closeNav}>x</h1>
                     <div className="overlay-content">
-                        <h1 className="href">{sponsor}</h1>
+                       
                         <select id="dropdown-basic-button" title="Dropdown button" onChange={handleDropdownDrivers}>
                             {Object.keys(raceArr).map((country, index) => (
                                 <option key={index} value={country}>{country} ({raceArr[country]})</option>
                             ))}
                         </select>
-
+                        <li>{driver}</li>
                         <div className="drivers">
-                
-                            <li>{driver}</li>
-                        </div>
-
+                        <h1 className="href">{sponsor}</h1>
                         <div className="stockgraph">
                             <div className="svgcontainer">
                                 {showGraph && <LineGraph stockName={stock} ref={lineGraphRef} onTargetVal={handleTargetVal} />}
                             </div>
                         </div>
+                        </div>
+                      
+                        
                     </div>
                 </div>
 
