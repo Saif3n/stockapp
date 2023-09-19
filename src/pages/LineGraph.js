@@ -17,7 +17,7 @@ const LineGraph = React.forwardRef((props, ref) => {
     const border = "white";
     const hoverColor = "red";
     const raceColor = "green"
-    const path = "green";
+    const path = "lightgreen";
 
     const polyLineData = [];
     const svgRef = useRef();
@@ -64,7 +64,7 @@ const LineGraph = React.forwardRef((props, ref) => {
         // do not call alphavantage if no ticker given
         if (name.length > 0) {
             setTickExist(true);
-            fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${name}&outputsize=full&apikey=${process.env.STOCK_API}`)
+            fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=${name}&outputsize=full&apikey=${process.env.STOCK_API}`)
                 .then(response => response.json())
                 .then(data => {
 
@@ -73,12 +73,12 @@ const LineGraph = React.forwardRef((props, ref) => {
                     }
 
 
-                    for (const element in data['Time Series (Daily)']) {
+                    for (const element in data['Weekly Adjusted Time Series']) {
 
                         const dateOfElement = new Date(element);
 
                         if (dateOfElement > firstRaceDate && dateOfElement <= lastRaceDate) {
-                            const closePrice = parseFloat(data['Time Series (Daily)'][element]['4. close']);
+                            const closePrice = parseFloat(data['Weekly Adjusted Time Series'][element]['4. close']);
                             polyLineData.push({ x: dateOfElement, y: closePrice });
                         }
                     }
@@ -134,14 +134,6 @@ const LineGraph = React.forwardRef((props, ref) => {
                         .style('user-select', 'none').selectAll('.domain, .tick line')
                         .remove();
 
-                    // svg.append('g')
-                    //     .attr('transform', `translate(0, ${height - margin.bottom})`)
-                    //     .style('color', `${border}`)
-                    //     .style('font-size', 8)
-                    //     .call(d3.axisBottom(xScale)
-                    //         .tickValues(dateObjectArr)
-                    //         .tickFormat(d3.timeFormat('%m-%d')))
-                    //         .style('user-select', 'none');
 
                     svg.append('path')
                         .datum(polyLineData)

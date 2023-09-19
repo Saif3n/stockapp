@@ -13,8 +13,8 @@ function App() {
   
   return (
     <div className="App">
-      <OverlayProgress/>
-      <StockSearch/>
+      <OverlayProgress/> 
+      <StockSearch/> 
       <Welcome/>
     </div>
   );

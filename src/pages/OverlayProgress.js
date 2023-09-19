@@ -34,7 +34,7 @@ const OverlayProgress = React.forwardRef((props, ref) => {
                         <br></br>
                         <br></br>
                         Last updated on: 15/01/2023
-                        {isLoading ? <LoadingSpinner /> : <span className="close-button" onClick={() => setShowOverlay(false)}>Click to view website!</span>}
+                        {isLoading ? <LoadingSpinner /> : <span className="close-button" onClick={() => setShowOverlay(false)}>View Website</span>}
 
                     </div>
 
