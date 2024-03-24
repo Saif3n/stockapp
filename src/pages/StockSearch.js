@@ -32,7 +32,7 @@ function StockSearch() {
     useEffect(() => {
 
         //localhost:7024
-        fetch("https://localhost:7024/GetAllSponsors").then(
+        fetch("https://personalbackendreact.azurewebsites.net/GetAllSponsors").then(
             response => response.json()
         ).then((response) => {
             teamArr.push('<-- Select a team -->')
@@ -124,7 +124,7 @@ function StockSearch() {
 
         appendAdditionalElements(raceArr[e.target.value], svgObj.polyLineData, svgObj.svg, svgObj.xScale, svgObj.yScale, svgObj.yMin, svgObj.yMax);
 
-        fetch("https://localhost:7024/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
+        fetch("https://personalbackendreact.azurewebsites.net/GetResultByTeam?teamName=" + team + "&race=" + e.target.value).then(
             response => response.json()
         ).then((response) => {
             for (const element in response) {
@@ -183,7 +183,7 @@ function StockSearch() {
                                 <option key={index} value={country}>{country} ({raceArr[country]})</option>
                             ))}
                         </select>
-                        <li>{driver}</li>
+                        <li className="driverposition">{driver}</li>
                         <div className="drivers">
                         <h1 className="href">{sponsor}</h1>
                         <div className="stockgraph">

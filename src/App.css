@@ -20,7 +20,9 @@ ul {
   display: inline-block;
   padding-bottom: 2.6%;
 }
-
+.driverposition{
+  color:white;
+}
 li {
   font-size: 1.8vh;
 }
